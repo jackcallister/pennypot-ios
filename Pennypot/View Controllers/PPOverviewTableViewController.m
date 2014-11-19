@@ -7,7 +7,72 @@
 //
 
 #import "PPOverviewTableViewController.h"
+#import "PPOverviewHeaderView.h"
+#import "PPOverviewTableViewCell.h"
+
+#import <ViewUtils/ViewUtils.h>
+
+@interface PPOverviewTableViewController ()
+
+@property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
+
+@end
 
 @implementation PPOverviewTableViewController
+
+- (id)init
+{
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    
+    [self.tableView registerClass:PPOverviewTableViewCell.class forCellReuseIdentifier: [PPOverviewTableViewCell reuseIdentifier]];
+    
+    self.overviewHeader.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4f];
+    self.tableView.tableHeaderView = self.overviewHeader;
+}
+
+#pragma mark - Table View Data Source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PPOverviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[PPOverviewTableViewCell reuseIdentifier]];
+
+    [cell configureWithModel:nil];
+    cell.textLabel.text = @"Fuckshitstack";
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return [PPOverviewHeaderView heightForImage:nil];
+}
+
+#pragma mark - Getters
+
+- (PPOverviewHeaderView *)overviewHeader
+{
+    if (!_overviewHeader) {
+        _overviewHeader = [PPOverviewHeaderView new];
+    }
+    return _overviewHeader;
+}
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PPOverviewTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:
+                   [[UIScreen mainScreen] bounds]];
+    
+    
+    PPOverviewTableViewController *mainVC = [PPOverviewTableViewController new];
+
+    self.window.rootViewController = mainVC;
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
