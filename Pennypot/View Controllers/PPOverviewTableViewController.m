@@ -35,7 +35,6 @@
     [self.tableView registerClass:PPOverviewTableViewCell.class forCellReuseIdentifier: [PPOverviewTableViewCell reuseIdentifier]];
     
     self.overviewHeader.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4f];
-    self.tableView.tableHeaderView = self.overviewHeader;
 }
 
 #pragma mark - Table View Data Source
@@ -60,9 +59,14 @@
     return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return self.overviewHeader;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return [PPOverviewHeaderView heightForImage:nil];
+    return [PPOverviewHeaderView heightForImage:[UIImage imageNamed:@"Bridge"]];
 }
 
 #pragma mark - Getters
@@ -70,7 +74,7 @@
 - (PPOverviewHeaderView *)overviewHeader
 {
     if (!_overviewHeader) {
-        _overviewHeader = [PPOverviewHeaderView new];
+        _overviewHeader = [[PPOverviewHeaderView alloc] initWithImage:[UIImage imageNamed:@"Bridge"]];
     }
     return _overviewHeader;
 }

@@ -10,6 +10,7 @@
 
 @interface PPOverviewHeaderView : UIView
 
+- (id)initWithImage:(UIImage *)image;
 // Class
 + (CGFloat)heightForImage:(UIImage *)image;
 
