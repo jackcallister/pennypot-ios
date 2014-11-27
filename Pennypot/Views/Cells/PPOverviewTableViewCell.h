@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MCSwipeTableViewCell/MCSwipeTableViewCell.h>
 
-@interface PPOverviewTableViewCell : UITableViewCell
+@class PPPennyPot;
 
-- (void)configureWithModel:(NSObject *)model;
+@interface PPOverviewTableViewCell : MCSwipeTableViewCell
+
+- (void)configureWithModel:(PPPennyPot *)model;
 
 + (NSString *)reuseIdentifier;
 + (CGFloat)heightForModel:(NSObject *)model;

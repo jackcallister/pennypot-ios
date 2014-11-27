@@ -21,7 +21,7 @@
     self = [super init];
     if (self) {
         self.backgroundImageView = [[UIImageView alloc] initWithImage:image];
-        
+        self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:self.backgroundImageView];
     }
     return self;

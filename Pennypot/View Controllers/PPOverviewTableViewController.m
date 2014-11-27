@@ -5,10 +5,10 @@
 //  Created by Matthew Nydam on 19/11/14.
 //  Copyright (c) 2014 PP. All rights reserved.
 //
-
 #import "PPOverviewTableViewController.h"
 #import "PPOverviewHeaderView.h"
 #import "PPOverviewTableViewCell.h"
+#import "PPPennyPot.h"
 
 #import <ViewUtils/ViewUtils.h>
 
@@ -49,12 +49,18 @@
     return 2;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [PPOverviewTableViewCell heightForModel:nil];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PPOverviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[PPOverviewTableViewCell reuseIdentifier]];
 
-    [cell configureWithModel:nil];
-    cell.textLabel.text = @"Fuckshitstack";
+    PPPennyPot *penny = [[PPPennyPot alloc] initWithTitle:@"New York" andSavingsGoal:3000];
+
+    [cell configureWithModel:penny];
     
     return cell;
 }
