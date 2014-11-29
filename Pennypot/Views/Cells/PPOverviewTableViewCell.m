@@ -19,6 +19,9 @@
 @property (nonatomic, strong) UIView *fullProgressBar;
 @property (nonatomic, strong) UIView *currentProgressBar;
 
+@property (nonatomic, strong) UIImageView *coinView;
+@property (nonatomic, strong) UIImageView *trashView;
+
 @end
 
 static const CGFloat kVerticalPadding = 10.0f;
@@ -45,6 +48,29 @@ static const CGFloat kHorizontalPadding = 20.0f;
     
     [self.titleLabel sizeToFit];
     [self.progressLabel sizeToFit];
+    
+    // Configuring the views and colors.
+    UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
+    
+    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
+    
+    // Setting the default inactive state color to the tableView background color.
+    [self setDefaultColor:[UIColor blueColor]];
+    
+    // Adding gestures per state basis.
+    [self setSwipeGestureWithView:self.coinView color:greenColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        
+        [cell swipeToOriginWithCompletion:^{
+            
+        }];
+    }];
+    
+    [self setSwipeGestureWithView:self.trashView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+        
+        [cell swipeToOriginWithCompletion:^{
+            
+        }];
+    }];
 }
 
 #pragma mark - Layout
@@ -101,6 +127,22 @@ static const CGFloat kHorizontalPadding = 20.0f;
         _progressLabel = [UILabel new];
     }
     return _progressLabel;
+}
+
+- (UIImageView *)coinView
+{
+    if (!_coinView) {
+        _coinView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"coin"]];
+    }
+    return _coinView;
+}
+
+- (UIImageView *)trashView
+{
+    if (!_trashView) {
+        _trashView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trash"]];
+    }
+    return _trashView;
 }
 
 #pragma mark - Class

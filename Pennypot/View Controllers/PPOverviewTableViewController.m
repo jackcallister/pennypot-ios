@@ -72,7 +72,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return [PPOverviewHeaderView heightForImage:[UIImage imageNamed:@"Bridge"]];
+    return [PPOverviewHeaderView heightForImage:[UIImage imageNamed:@"bridge"]];
 }
 
 #pragma mark - Getters
@@ -80,7 +80,7 @@
 - (PPOverviewHeaderView *)overviewHeader
 {
     if (!_overviewHeader) {
-        _overviewHeader = [[PPOverviewHeaderView alloc] initWithImage:[UIImage imageNamed:@"Bridge"]];
+        _overviewHeader = [[PPOverviewHeaderView alloc] initWithImage:[UIImage imageNamed:@"bridge"]];
     }
     return _overviewHeader;
 }

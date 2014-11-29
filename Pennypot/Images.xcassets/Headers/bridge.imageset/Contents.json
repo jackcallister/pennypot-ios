@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "bridge.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Bridge@2x.png"
+      "filename" : "bridge@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "bridge@3x.png"
     }
   ],
   "info" : {
