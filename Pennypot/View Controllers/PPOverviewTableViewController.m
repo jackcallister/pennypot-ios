@@ -40,6 +40,7 @@
     self.overviewHeader.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4f];
     
     self.tableView.tableHeaderView = self.overviewHeader;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 #pragma mark - Table View Data Source
@@ -57,6 +58,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [PPOverviewTableViewCell heightForModel:nil];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

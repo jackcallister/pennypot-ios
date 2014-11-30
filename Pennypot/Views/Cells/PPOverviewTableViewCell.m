@@ -23,6 +23,8 @@
 @property (nonatomic, strong) UIImageView *coinView;
 @property (nonatomic, strong) UIImageView *trashView;
 
+@property (nonatomic, strong) UIView *seperatorView;
+
 @end
 
 static const CGFloat kVerticalPadding = 10.0f;
@@ -38,6 +40,9 @@ static const CGFloat kHorizontalPadding = 20.0f;
         
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.progressLabel];
+        
+        [self.contentView addSubview:self.seperatorView];
+        
     }
     return self;
 }
@@ -78,6 +83,10 @@ static const CGFloat kHorizontalPadding = 20.0f;
     self.currentProgressBar.bottom = self.fullProgressBar.bottom = self.contentView.bottom - kVerticalPadding;
     
     self.fullProgressBar.layer.cornerRadius = self.currentProgressBar.layer.cornerRadius = self.fullProgressBar.height/2;
+    
+    self.seperatorView.width = self.contentView.boundsWidth;
+    self.seperatorView.height = 1.0f;
+    self.seperatorView.bottom = self.contentView.bottom;
 }
 
 #pragma mark - Swipe Interaction set up
@@ -160,6 +169,15 @@ static const CGFloat kHorizontalPadding = 20.0f;
     return _trashView;
 }
 
+- (UIView *)seperatorView
+{
+    if (!_seperatorView) {
+        _seperatorView = [UIView new];
+        _seperatorView.backgroundColor = [UIColor progressBackground];
+    }
+    return _seperatorView;
+}
+
 #pragma mark - Class
 
 + (NSString *)reuseIdentifier
@@ -169,7 +187,7 @@ static const CGFloat kHorizontalPadding = 20.0f;
 
 + (CGFloat)heightForModel:(NSObject *)model
 {
-    return 65.0f;
+    return 66.0f;
 }
 
 @end
