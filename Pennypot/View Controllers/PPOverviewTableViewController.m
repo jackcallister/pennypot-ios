@@ -10,6 +10,7 @@
 #import "PPOverviewTableViewCell.h"
 #import "PPPennyPot.h"
 #import "PPDataManager.h"
+#import "PPModifyPennyPotViewController.h"
 
 #import <ViewUtils/ViewUtils.h>
 
@@ -41,6 +42,8 @@
     
     self.tableView.tableHeaderView = self.overviewHeader;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    NSLog(@"%@, %@", @(self.tableView.contentSize.height), @([[UIScreen mainScreen] bounds].size.height));
 }
 
 #pragma mark - Table View Data Source
@@ -84,6 +87,14 @@
 {
 //    PPPennyPot *pennyPot = [self.pen]
     
+    PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithMode:PPModifyModeEdit];
+    
+    UINavigationController *modifyNavigation = [[UINavigationController alloc] initWithRootViewController:modifyController];
+    
+    [self presentViewController:modifyNavigation animated:YES completion:^{
+        
+    }];
+    
 }
 
 #pragma mark - Custom Cell Delegate
@@ -100,9 +111,16 @@
         
     } else {
         
-        [cell swipeToOriginWithCompletion:^{
-            
+        PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithMode:PPModifyModeEdit];
+        
+        UINavigationController *modifyNavigation = [[UINavigationController alloc] initWithRootViewController:modifyController];
+        
+        [self presentViewController:modifyNavigation animated:YES completion:^{
+            [cell swipeToOriginWithCompletion:^{
+                
+            }];
         }];
+
     }
 }
 

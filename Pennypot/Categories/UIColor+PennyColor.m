@@ -13,6 +13,11 @@
 
 #pragma mark - General
 
++ (UIColor *)generalBlue
+{
+    return [UIColor colorWithRed:0.247 green:0.318 blue:0.71 alpha:1] /*#3f51b5*/;
+}
+
 + (UIColor *)deleteColor
 {
   return [UIColor colorWithRed:0.776 green:0.157 blue:0.157 alpha:1] /*#c62828*/;
@@ -21,6 +26,11 @@
 + (UIColor *)increaseColor
 {
     return [UIColor colorWithRed:0.404 green:0.227 blue:0.718 alpha:1] /*#673ab7*/;
+}
+
++ (UIColor *)backroundGrey
+{
+    return [UIColor colorWithRed:0.863 green:0.863 blue:0.863 alpha:1] /*#dcdcdc*/;
 }
 
 #pragma mark - Progress

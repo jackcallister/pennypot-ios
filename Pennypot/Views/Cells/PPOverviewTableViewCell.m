@@ -96,7 +96,7 @@ static const CGFloat kHorizontalPadding = 20.0f;
     
     __block PPOverviewTableViewCell *blockSelf = self;
     
-    [self setDefaultColor:self.pennyPot.progressColor];
+    [self setDefaultColor:[UIColor backroundGrey]];
     
     // Adding gestures per state basis.
     [self setSwipeGestureWithView:self.coinView color:[UIColor increaseColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {

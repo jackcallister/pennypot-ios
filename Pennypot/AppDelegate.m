@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "PPOverviewTableViewController.h"
+#import "UIColor+PennyColor.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +22,13 @@
     self.window = [[UIWindow alloc] initWithFrame:
                    [[UIScreen mainScreen] bounds]];
     
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor generalBlue]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance]setTranslucent:NO];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary    dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,  [UIFont fontWithName:@"Helvetica-Neue" size:20], NSFontAttributeName, nil]];
+
     
     PPOverviewTableViewController *mainVC = [PPOverviewTableViewController new];
 
