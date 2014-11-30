@@ -17,6 +17,9 @@
 - (NSInteger)numberOfPennyObjects;
 
 - (void)addPennyPotToArray:(PPPennyPot *)pennyPot;
+
+- (void)deletePennyObject:(PPPennyPot *)pennyObject;
+
 - (PPPennyPot *)pennyPotAtPosition:(NSInteger)position;
 
 @end

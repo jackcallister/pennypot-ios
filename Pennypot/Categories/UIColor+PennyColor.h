@@ -10,6 +10,13 @@
 
 @interface UIColor (PennyColor)
 
+// General UI
+
++ (UIColor *)deleteColor;
++ (UIColor *)increaseColor;
+
+// Progress Colors
+
 + (UIColor *)progressZero;
 + (UIColor *)progressTen;
 + (UIColor *)progressTwenty;

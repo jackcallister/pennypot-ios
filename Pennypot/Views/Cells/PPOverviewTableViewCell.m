@@ -48,7 +48,7 @@ static const CGFloat kHorizontalPadding = 20.0f;
     self.titleLabel.text = self.pennyPot.title;
     self.progressLabel.text = self.pennyPot.formattedDisplayValue;
     
-    self.currentProgressBar.backgroundColor = [UIColor purpleColor];
+    self.currentProgressBar.backgroundColor = self.pennyPot.progressColor;
     
     [self.titleLabel sizeToFit];
     [self.progressLabel sizeToFit];
@@ -86,27 +86,22 @@ static const CGFloat kHorizontalPadding = 20.0f;
 {
     
     __block PPOverviewTableViewCell *blockSelf = self;
-    // Configuring the views and colors.
-    UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
     
-    UIColor *redColor = [UIColor colorWithRed:232.0 / 255.0 green:61.0 / 255.0 blue:14.0 / 255.0 alpha:1.0];
-    
-    // Setting the default inactive state color to the tableView background color.
-    [self setDefaultColor:[UIColor blueColor]];
+    [self setDefaultColor:self.pennyPot.progressColor];
     
     // Adding gestures per state basis.
-    [self setSwipeGestureWithView:self.coinView color:greenColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    [self setSwipeGestureWithView:self.coinView color:[UIColor increaseColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         
-        [blockSelf handleSwipeActionsWithMode:mode];
+        [blockSelf handleSwipeActionsWithMode:PPOverviewCellSwipeTypeEdit];
     }];
     
-    [self setSwipeGestureWithView:self.trashView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
+    [self setSwipeGestureWithView:self.trashView color:[UIColor deleteColor] mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         
-        [blockSelf handleSwipeActionsWithMode:mode];
+        [blockSelf handleSwipeActionsWithMode:PPOverviewCellSwipeTypeDelete];
     }];
 }
 
-- (void)handleSwipeActionsWithMode:(MCSwipeTableViewCellMode)mode
+- (void)handleSwipeActionsWithMode:(PPOverviewCellSwipeMode)mode
 {
     if ([self.delegate respondsToSelector:@selector(overviewTableViewCell:didSwipeWithCellMode:)]) {
         [self.delegate overviewTableViewCell:self didSwipeWithCellMode:mode];

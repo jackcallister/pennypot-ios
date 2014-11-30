@@ -11,6 +11,17 @@
 
 @implementation UIColor (PennyColor)
 
+#pragma mark - General
+
++ (UIColor *)deleteColor
+{
+  return [UIColor colorWithRed:0.776 green:0.157 blue:0.157 alpha:1] /*#c62828*/;
+}
+
++ (UIColor *)increaseColor
+{
+    return [UIColor colorWithRed:0.404 green:0.227 blue:0.718 alpha:1] /*#673ab7*/;
+}
 
 #pragma mark - Progress
 

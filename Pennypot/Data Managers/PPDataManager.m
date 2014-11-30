@@ -36,8 +36,8 @@
         PPPennyPot *pennyOne = [[PPPennyPot alloc] initWithTitle:@"New York" andSavingsGoal:3000];
         PPPennyPot *pennyTwo = [[PPPennyPot alloc] initWithTitle:@"Skiing" andSavingsGoal:500];
         
-        pennyOne.currentProgress = 1000;
-        pennyTwo.currentProgress = 250;
+        pennyOne.currentProgress = 2000;
+        pennyTwo.currentProgress = 150;
         
         [self addPennyPotToArray:pennyOne];
         [self addPennyPotToArray:pennyTwo];
@@ -60,6 +60,15 @@
     [addArray addObject:pennyPot];
     
     self.pennyData = [NSArray arrayWithArray:addArray];
+}
+
+- (void)deletePennyObject:(PPPennyPot *)pennyObject
+{
+    NSMutableArray *deleteArray = [NSMutableArray arrayWithArray:self.pennyData];
+    if ([deleteArray containsObject:pennyObject]) {
+        [deleteArray removeObject:pennyObject];
+        self.pennyData = [NSArray arrayWithArray:deleteArray];
+    }
 }
 
 - (PPPennyPot *)pennyPotAtPosition:(NSInteger)position

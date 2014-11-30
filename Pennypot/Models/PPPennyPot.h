@@ -10,16 +10,15 @@
 
 @interface PPPennyPot : NSObject
 
+// User set
 @property (nonatomic, strong) NSString *title;
-
-@property (nonatomic) CGFloat currentPercent;
-
 @property (nonatomic) NSInteger currentProgress;
 @property (nonatomic) NSInteger savingsGoal;
 
+// Calculated
+@property (nonatomic) CGFloat currentPercent;
 @property (nonatomic, strong) NSString *formattedDisplayValue;
-
-@property (nonatomic) BOOL isSavingsGoalReached;
+@property (nonatomic, strong) UIColor *progressColor;
 
 - (id)initWithTitle:(NSString *)title andSavingsGoal:(NSInteger)savingsGoal;
 

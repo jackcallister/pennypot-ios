@@ -82,11 +82,22 @@
 
 #pragma mark - Custom Cell Delegate
 
-- (void)overviewTableViewCell:(PPOverviewTableViewCell *)cell didSwipeWithCellMode:(MCSwipeTableViewCellMode)mode
+- (void)overviewTableViewCell:(PPOverviewTableViewCell *)cell didSwipeWithCellMode:(PPOverviewCellSwipeMode)mode
 {
-    [cell swipeToOriginWithCompletion:^{
+    if (mode == PPOverviewCellSwipeTypeDelete) {
         
-    }];
+        NSIndexPath *deletePath = [self.tableView indexPathForCell:cell];
+        
+        [[PPDataManager sharedManager] deletePennyObject:cell.pennyPot];
+        
+        [self.tableView deleteRowsAtIndexPaths:@[deletePath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    } else {
+        
+        [cell swipeToOriginWithCompletion:^{
+            
+        }];
+    }
 }
 
 

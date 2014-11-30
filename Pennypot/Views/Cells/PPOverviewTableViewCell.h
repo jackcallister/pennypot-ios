@@ -12,9 +12,14 @@
 @class PPOverviewTableViewCell;
 @class PPPennyPot;
 
+typedef NS_ENUM(NSInteger, PPOverviewCellSwipeMode) {
+    PPOverviewCellSwipeTypeEdit,
+    PPOverviewCellSwipeTypeDelete
+};
+
 @protocol PPOverviewTableViewCellDelegate <NSObject>
 
-- (void)overviewTableViewCell:(PPOverviewTableViewCell *)cell didSwipeWithCellMode:(MCSwipeTableViewCellMode)mode;
+- (void)overviewTableViewCell:(PPOverviewTableViewCell *)cell didSwipeWithCellMode:(PPOverviewCellSwipeMode)mode;
 
 @end
 
