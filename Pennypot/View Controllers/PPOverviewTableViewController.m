@@ -12,7 +12,7 @@
 
 #import <ViewUtils/ViewUtils.h>
 
-@interface PPOverviewTableViewController ()
+@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate>
 
 @property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
 
@@ -35,6 +35,8 @@
     [self.tableView registerClass:PPOverviewTableViewCell.class forCellReuseIdentifier: [PPOverviewTableViewCell reuseIdentifier]];
     
     self.overviewHeader.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4f];
+    
+    self.tableView.tableHeaderView = self.overviewHeader;
 }
 
 #pragma mark - Table View Data Source
@@ -60,20 +62,31 @@
 
     PPPennyPot *penny = [[PPPennyPot alloc] initWithTitle:@"New York" andSavingsGoal:3000];
 
+    cell.delegate = self;
     [cell configureWithModel:penny];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+#pragma mark - Table View Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.overviewHeader;
+//    PPPennyPot *pennyPot = [self.pen]
+    
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+#pragma mark - Custom Cell Delegate
+
+- (void)overviewTableViewCell:(PPOverviewTableViewCell *)cell didSwipeWithCellMode:(MCSwipeTableViewCellMode)mode
 {
-    return [PPOverviewHeaderView heightForImage:[UIImage imageNamed:@"bridge"]];
+    [cell swipeToOriginWithCompletion:^{
+        
+    }];
 }
+
 
 #pragma mark - Getters
 

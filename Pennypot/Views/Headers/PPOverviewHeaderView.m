@@ -23,6 +23,7 @@
         self.backgroundImageView = [[UIImageView alloc] initWithImage:image];
         self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:self.backgroundImageView];
+        self.frame = self.backgroundImageView.frame;
     }
     return self;
 }

@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 PP. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface PPPennyPot : NSObject
 
 @property (nonatomic, strong) NSString *title;
+
+@property (nonatomic) CGFloat currentPercent;
 
 @property (nonatomic) NSInteger currentProgress;
 @property (nonatomic) NSInteger savingsGoal;
@@ -18,5 +20,7 @@
 @property (nonatomic) BOOL isSavingsGoalReached;
 
 - (id)initWithTitle:(NSString *)title andSavingsGoal:(NSInteger)savingsGoal;
+
+- (CGFloat)getProgressWidthFrom:(CGFloat)maxWidth;
 
 @end

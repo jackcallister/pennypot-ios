@@ -9,6 +9,7 @@
 #import "PPPennyPot.h"
 
 #import <ViewUtils/ViewUtils.h>
+#import "UIColor+PennyColor.h"
 
 
 @interface PPOverviewTableViewCell ()
@@ -43,12 +44,48 @@ static const CGFloat kHorizontalPadding = 20.0f;
 
 - (void)configureWithModel:(PPPennyPot *)model
 {
-    self.titleLabel.text = model.title;
+    self.pennyPot = model;
+    self.titleLabel.text = self.pennyPot.title;
     self.progressLabel.text = @"$1900 of $2000";
+    
+    self.currentProgressBar.backgroundColor = [UIColor purpleColor];
     
     [self.titleLabel sizeToFit];
     [self.progressLabel sizeToFit];
     
+    
+    [self addSwipeInteractions];
+}
+
+#pragma mark - Layout
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    CGFloat maxWidth = self.contentView.boundsWidth - (kHorizontalPadding * 2);
+    
+    self.titleLabel.left = kHorizontalPadding;
+    self.progressLabel.right = self.boundsWidth - kHorizontalPadding;
+    
+    self.progressLabel.top = self.titleLabel.top = kVerticalPadding;
+    
+    self.currentProgressBar.height = self.fullProgressBar.height = 5;
+    self.fullProgressBar.width = maxWidth;
+    self.currentProgressBar.width = self.pennyPot ? [self.pennyPot getProgressWidthFrom:maxWidth] : 0;
+    
+    self.currentProgressBar.left = self.fullProgressBar.left = kHorizontalPadding;
+    self.currentProgressBar.bottom = self.fullProgressBar.bottom = self.contentView.bottom - kVerticalPadding;
+    
+    self.fullProgressBar.layer.cornerRadius = self.currentProgressBar.layer.cornerRadius = self.fullProgressBar.height/2;
+}
+
+#pragma mark - Swipe Interaction set up
+
+- (void)addSwipeInteractions
+{
+    
+    __block PPOverviewTableViewCell *blockSelf = self;
     // Configuring the views and colors.
     UIColor *greenColor = [UIColor colorWithRed:85.0 / 255.0 green:213.0 / 255.0 blue:80.0 / 255.0 alpha:1.0];
     
@@ -60,36 +97,20 @@ static const CGFloat kHorizontalPadding = 20.0f;
     // Adding gestures per state basis.
     [self setSwipeGestureWithView:self.coinView color:greenColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState1 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         
-        [cell swipeToOriginWithCompletion:^{
-            
-        }];
+        [blockSelf handleSwipeActionsWithMode:mode];
     }];
     
     [self setSwipeGestureWithView:self.trashView color:redColor mode:MCSwipeTableViewCellModeExit state:MCSwipeTableViewCellState3 completionBlock:^(MCSwipeTableViewCell *cell, MCSwipeTableViewCellState state, MCSwipeTableViewCellMode mode) {
         
-        [cell swipeToOriginWithCompletion:^{
-            
-        }];
+        [blockSelf handleSwipeActionsWithMode:mode];
     }];
 }
 
-#pragma mark - Layout
-
-- (void)layoutSubviews
+- (void)handleSwipeActionsWithMode:(MCSwipeTableViewCellMode)mode
 {
-    [super layoutSubviews];
-    
-    self.titleLabel.left = kHorizontalPadding;
-    self.progressLabel.right = self.boundsWidth - kHorizontalPadding;
-    
-    self.progressLabel.top = self.titleLabel.top = kVerticalPadding;
-    
-    self.currentProgressBar.height = self.fullProgressBar.height = 3;
-    self.currentProgressBar.width = self.contentView.boundsWidth - (kHorizontalPadding * 2);
-    self.currentProgressBar.left = self.fullProgressBar.left = kHorizontalPadding;
-    self.currentProgressBar.bottom = self.fullProgressBar.bottom = self.contentView.bottom - kVerticalPadding;
-    
-    self.fullProgressBar.layer.cornerRadius = self.currentProgressBar.layer.cornerRadius = self.fullProgressBar.height/2;
+    if ([self.delegate respondsToSelector:@selector(overviewTableViewCell:didSwipeWithCellMode:)]) {
+        [self.delegate overviewTableViewCell:self didSwipeWithCellMode:mode];
+    }
 }
 
 #pragma mark - Getters
@@ -99,7 +120,7 @@ static const CGFloat kHorizontalPadding = 20.0f;
     if (!_fullProgressBar) {
         _fullProgressBar = [UIView new];
         
-        _fullProgressBar.backgroundColor = [UIColor redColor];
+        _fullProgressBar.backgroundColor = [UIColor progressBackground];
     }
     return _fullProgressBar;
 }
@@ -108,7 +129,6 @@ static const CGFloat kHorizontalPadding = 20.0f;
 {
     if (!_currentProgressBar) {
         _currentProgressBar = [UIView new];
-        _currentProgressBar.backgroundColor = [UIColor purpleColor];
     }
     return _currentProgressBar;
 }
@@ -154,8 +174,7 @@ static const CGFloat kHorizontalPadding = 20.0f;
 
 + (CGFloat)heightForModel:(NSObject *)model
 {
-    return 60.0f;
+    return 65.0f;
 }
-
 
 @end

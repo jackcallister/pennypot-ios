@@ -17,8 +17,26 @@
         _title = title;
         _savingsGoal = savingsGoal;
         _currentProgress = 0;
+        _currentPercent = 0;
     }
     return self;
+}
+
+//func formattedDisplayValue() -> String {
+//    
+//    return "$" + String(progress) + " of $" + String(goal);
+//}
+
+- (CGFloat)getProgressWidthFrom:(CGFloat)maxWidth
+{
+    
+    if (self.currentPercent <= 0 || maxWidth <= 0) {
+        return 0;
+    }
+    
+    CGFloat percentageFraction = maxWidth * (self.currentPercent/100.0);
+    
+    return percentageFraction;
 }
 
 #pragma mark - Setters
@@ -26,7 +44,7 @@
 - (void)setCurrentProgress:(NSInteger)currentProgress
 {
     if (currentProgress > _savingsGoal) {
-        NSAssert(@"", nil);
+        NSAssert(@"Current Progress cannot be greater than the goal!", nil);
         return;
     }
     
@@ -34,6 +52,19 @@
 }
 
 #pragma mark - Getters
+
+- (CGFloat)currentPercent
+{
+    if ((self.savingsGoal < 0) || (self.currentProgress <= 0)) {
+        return 0;
+    } else if (self.currentProgress >= self.savingsGoal) {
+        return 100;
+    }
+    
+    CGFloat currentPercent = (self.currentProgress / self.savingsGoal) * 100.0f;
+    
+    return currentPercent;
+}
 
 - (BOOL)isSavingsGoalReached
 {

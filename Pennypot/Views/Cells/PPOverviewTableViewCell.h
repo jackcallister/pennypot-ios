@@ -9,9 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <MCSwipeTableViewCell/MCSwipeTableViewCell.h>
 
+@class PPOverviewTableViewCell;
 @class PPPennyPot;
 
+@protocol PPOverviewTableViewCellDelegate <NSObject>
+
+- (void)overviewTableViewCell:(PPOverviewTableViewCell *)cell didSwipeWithCellMode:(MCSwipeTableViewCellMode)mode;
+
+@end
+
 @interface PPOverviewTableViewCell : MCSwipeTableViewCell
+
+@property (nonatomic, strong) PPPennyPot *pennyPot;
+@property (nonatomic, assign) id<PPOverviewTableViewCellDelegate>delegate;
 
 - (void)configureWithModel:(PPPennyPot *)model;
 
