@@ -9,12 +9,15 @@
 #import "PPOverviewHeaderView.h"
 #import "PPOverviewTableViewCell.h"
 #import "PPPennyPot.h"
+#import "PPDataManager.h"
 
 #import <ViewUtils/ViewUtils.h>
 
 @interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate>
 
 @property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
+
+@property (nonatomic, strong) PPDataManager *dataManager;
 
 @end
 
@@ -48,7 +51,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return [[PPDataManager sharedManager] numberOfPennyObjects];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -60,10 +63,9 @@
 {
     PPOverviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[PPOverviewTableViewCell reuseIdentifier]];
 
-    PPPennyPot *penny = [[PPPennyPot alloc] initWithTitle:@"New York" andSavingsGoal:3000];
 
     cell.delegate = self;
-    [cell configureWithModel:penny];
+    [cell configureWithModel:[[PPDataManager sharedManager] pennyPotAtPosition:indexPath.row]];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     

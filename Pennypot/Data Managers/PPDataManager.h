@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class PPPennyPot;
+
 @interface PPDataManager : NSObject
+
++ (id)sharedManager;
+
+- (NSInteger)numberOfPennyObjects;
+
+- (void)addPennyPotToArray:(PPPennyPot *)pennyPot;
+- (PPPennyPot *)pennyPotAtPosition:(NSInteger)position;
 
 @end

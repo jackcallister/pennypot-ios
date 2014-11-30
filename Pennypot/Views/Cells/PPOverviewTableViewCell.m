@@ -46,7 +46,7 @@ static const CGFloat kHorizontalPadding = 20.0f;
 {
     self.pennyPot = model;
     self.titleLabel.text = self.pennyPot.title;
-    self.progressLabel.text = @"$1900 of $2000";
+    self.progressLabel.text = self.pennyPot.formattedDisplayValue;
     
     self.currentProgressBar.backgroundColor = [UIColor purpleColor];
     

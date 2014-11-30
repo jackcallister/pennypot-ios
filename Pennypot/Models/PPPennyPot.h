@@ -17,6 +17,8 @@
 @property (nonatomic) NSInteger currentProgress;
 @property (nonatomic) NSInteger savingsGoal;
 
+@property (nonatomic, strong) NSString *formattedDisplayValue;
+
 @property (nonatomic) BOOL isSavingsGoalReached;
 
 - (id)initWithTitle:(NSString *)title andSavingsGoal:(NSInteger)savingsGoal;

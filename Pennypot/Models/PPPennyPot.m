@@ -22,6 +22,8 @@
     return self;
 }
 
+
+
 //func formattedDisplayValue() -> String {
 //    
 //    return "$" + String(progress) + " of $" + String(goal);
@@ -61,9 +63,17 @@
         return 100;
     }
     
-    CGFloat currentPercent = (self.currentProgress / self.savingsGoal) * 100.0f;
+    CGFloat currentPercent = ((CGFloat)self.currentProgress / (CGFloat)self.savingsGoal) * 100.0f;
     
     return currentPercent;
+}
+
+- (NSString *)formattedDisplayValue
+{
+    if (self.savingsGoal && self.currentProgress) {
+        return [NSString stringWithFormat:@"$%@ of $%@", @(self.currentProgress), @(self.savingsGoal)];
+    }
+    return @"";
 }
 
 - (BOOL)isSavingsGoalReached
