@@ -12,15 +12,24 @@
 #import "PPDataManager.h"
 #import "PPModifyPennyPotViewController.h"
 
+#import "PPAddButton.h"
+
 #import <ViewUtils/ViewUtils.h>
 
-@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate>
+@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, PPAddButtonDelegate>
+
+@property (nonatomic) CGFloat addButtonBottom;
 
 @property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
+@property (nonatomic, strong) PPAddButton *addButton;
 
 @property (nonatomic, strong) PPDataManager *dataManager;
 
 @end
+
+static const CGFloat kButtonOffset = 20.0f;
+static const CGFloat kButtonSize = 60.0f;
+
 
 @implementation PPOverviewTableViewController
 
@@ -28,22 +37,28 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        
+        [self.tableView addSubview:self.addButton];
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
-    
+
     [self.tableView registerClass:PPOverviewTableViewCell.class forCellReuseIdentifier: [PPOverviewTableViewCell reuseIdentifier]];
     
     self.overviewHeader.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4f];
     
     self.tableView.tableHeaderView = self.overviewHeader;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    // For floating button :'(
+    self.addButton.height = self.addButton.width = kButtonSize;
+    self.addButton.right = self.tableView.boundsWidth - kButtonOffset;
     
-    NSLog(@"%@, %@", @(self.tableView.contentSize.height), @([[UIScreen mainScreen] bounds].size.height));
+    self.addButtonBottom = self.addButton.bottom = [[UIScreen mainScreen] bounds].size.height - kButtonOffset;
+    
+    [self.tableView bringSubviewToFront:self.addButton];
 }
 
 #pragma mark - Table View Data Source
@@ -124,6 +139,26 @@
     }
 }
 
+#pragma mark - Scroll View Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    self.addButton.y = scrollView.contentOffset.y + self.addButtonBottom - (kButtonSize/2);
+    [self.tableView bringSubviewToFront:self.addButton];
+}
+
+
+#pragma mark - Add Button Delegate
+
+- (void)addButtonPressed:(PPAddButton *)button
+{
+    PPModifyPennyPotViewController *addController = [[PPModifyPennyPotViewController alloc] initWithMode:PPModifyModeAdd];
+    
+    UINavigationController *addNavigation = [[UINavigationController alloc] initWithRootViewController:addController];
+    
+    [self presentViewController:addNavigation animated:YES completion:nil];
+}
+
 
 #pragma mark - Getters
 
@@ -133,6 +168,15 @@
         _overviewHeader = [[PPOverviewHeaderView alloc] initWithImage:[UIImage imageNamed:@"bridge"]];
     }
     return _overviewHeader;
+}
+
+- (PPAddButton *)addButton
+{
+    if (!_addButton) {
+        _addButton = [[PPAddButton alloc] initWithFrame:CGRectZero];
+        _addButton.delegate = self;
+    }
+    return _addButton;
 }
 
 @end

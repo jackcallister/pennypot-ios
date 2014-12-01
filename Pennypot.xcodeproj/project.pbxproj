@@ -11,6 +11,7 @@
 		E524EA2B1A2A91EE00704FF6 /* UIColor+PennyColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA2A1A2A91EE00704FF6 /* UIColor+PennyColor.m */; };
 		E524EA2F1A2AB60F00704FF6 /* PPDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA2E1A2AB60F00704FF6 /* PPDataManager.m */; };
 		E524EA321A2AD5E000704FF6 /* PPModifyPennyPotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA311A2AD5E000704FF6 /* PPModifyPennyPotViewController.m */; };
+		E53EEA621A2C50CA00F1BD88 /* PPAddButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E53EEA611A2C50CA00F1BD88 /* PPAddButton.m */; };
 		E565D5A41A1C6A9E003ADD6D /* PPOverviewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E565D5A31A1C6A9E003ADD6D /* PPOverviewHeaderView.m */; };
 		E565D5A71A1C6C5D003ADD6D /* PPOverviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E565D5A61A1C6C5D003ADD6D /* PPOverviewTableViewCell.m */; };
 		E59992C41A1C653D009CF98B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E59992C31A1C653D009CF98B /* main.m */; };
@@ -41,6 +42,8 @@
 		E524EA2E1A2AB60F00704FF6 /* PPDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPDataManager.m; sourceTree = "<group>"; };
 		E524EA301A2AD5E000704FF6 /* PPModifyPennyPotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPModifyPennyPotViewController.h; sourceTree = "<group>"; };
 		E524EA311A2AD5E000704FF6 /* PPModifyPennyPotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPModifyPennyPotViewController.m; sourceTree = "<group>"; };
+		E53EEA601A2C50CA00F1BD88 /* PPAddButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAddButton.h; sourceTree = "<group>"; };
+		E53EEA611A2C50CA00F1BD88 /* PPAddButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAddButton.m; sourceTree = "<group>"; };
 		E565D5A21A1C6A9E003ADD6D /* PPOverviewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPOverviewHeaderView.h; sourceTree = "<group>"; };
 		E565D5A31A1C6A9E003ADD6D /* PPOverviewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOverviewHeaderView.m; sourceTree = "<group>"; };
 		E565D5A51A1C6C5D003ADD6D /* PPOverviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPOverviewTableViewCell.h; sourceTree = "<group>"; };
@@ -112,6 +115,8 @@
 			children = (
 				E565D5A11A1C6A80003ADD6D /* Headers */,
 				E565D5A01A1C686F003ADD6D /* Cells */,
+				E53EEA601A2C50CA00F1BD88 /* PPAddButton.h */,
+				E53EEA611A2C50CA00F1BD88 /* PPAddButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				E524EA2B1A2A91EE00704FF6 /* UIColor+PennyColor.m in Sources */,
 				E524EA321A2AD5E000704FF6 /* PPModifyPennyPotViewController.m in Sources */,
 				E565D5A71A1C6C5D003ADD6D /* PPOverviewTableViewCell.m in Sources */,
+				E53EEA621A2C50CA00F1BD88 /* PPAddButton.m in Sources */,
 				E59992EC1A1C65F3009CF98B /* PPOverviewTableViewController.m in Sources */,
 				E5BF773D1A2017C000AF4262 /* PPPennyPot.m in Sources */,
 				E59992C41A1C653D009CF98B /* main.m in Sources */,

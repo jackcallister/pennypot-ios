@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, PPOverviewCellSwipeMode) {
 @interface PPOverviewTableViewCell : MCSwipeTableViewCell
 
 @property (nonatomic, strong) PPPennyPot *pennyPot;
-@property (nonatomic, assign) id<PPOverviewTableViewCellDelegate>delegate;
+@property (nonatomic, weak) id <PPOverviewTableViewCellDelegate>delegate;
 
 - (void)configureWithModel:(PPPennyPot *)model;
 
