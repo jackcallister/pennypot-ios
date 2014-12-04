@@ -77,7 +77,7 @@
 
 - (NSString *)formattedDisplayValue
 {
-    if (self.savingsGoal && self.currentProgress) {
+    if (self.savingsGoal > 0 && self.currentProgress >= 0) {
         return [NSString stringWithFormat:@"$%@ of $%@", @(self.currentProgress), @(self.savingsGoal)];
     }
     return @"";

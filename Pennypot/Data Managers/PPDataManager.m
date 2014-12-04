@@ -36,11 +36,31 @@
         PPPennyPot *pennyOne = [[PPPennyPot alloc] initWithTitle:@"New York" andSavingsGoal:3000];
         PPPennyPot *pennyTwo = [[PPPennyPot alloc] initWithTitle:@"Skiing" andSavingsGoal:500];
         
+        PPPennyPot *pennyThree = [[PPPennyPot alloc] initWithTitle:@"Taupo" andSavingsGoal:200];
+        PPPennyPot *pennyFour = [[PPPennyPot alloc] initWithTitle:@"China Trip" andSavingsGoal:500];
+        PPPennyPot *pennyFive = [[PPPennyPot alloc] initWithTitle:@"Turntable" andSavingsGoal:700];
+        PPPennyPot *pennySix = [[PPPennyPot alloc] initWithTitle:@"Benji Record" andSavingsGoal:30];
+        PPPennyPot *pennySeven = [[PPPennyPot alloc] initWithTitle:@"PS4" andSavingsGoal:550];
+        PPPennyPot *pennyEight = [[PPPennyPot alloc] initWithTitle:@"iPhone 6+" andSavingsGoal:1200];
+        
         pennyOne.currentProgress = 2000;
         pennyTwo.currentProgress = 150;
+        pennyThree.currentProgress = 200;
+        pennyFour.currentProgress = 450;
+        pennyFive.currentProgress = 1;
+        pennySix.currentProgress = 20;
+        pennySeven.currentProgress = 12;
+        pennyEight.currentProgress = 0;
         
         [self addPennyPotToArray:pennyOne];
         [self addPennyPotToArray:pennyTwo];
+        [self addPennyPotToArray:pennyThree];
+        [self addPennyPotToArray:pennyFour];
+        [self addPennyPotToArray:pennyFive];
+        [self addPennyPotToArray:pennySix];
+        [self addPennyPotToArray:pennySeven];
+        [self addPennyPotToArray:pennyEight];
+
         
     }
     return self;

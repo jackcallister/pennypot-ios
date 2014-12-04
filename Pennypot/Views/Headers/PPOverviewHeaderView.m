@@ -8,6 +8,8 @@
 
 #import "PPOverviewHeaderView.h"
 
+#import <ViewUtils/ViewUtils.h>
+
 @interface PPOverviewHeaderView ()
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -21,11 +23,17 @@
     self = [super init];
     if (self) {
         self.backgroundImageView = [[UIImageView alloc] initWithImage:image];
-        self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:self.backgroundImageView];
-        self.frame = self.backgroundImageView.frame;
     }
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    self.backgroundImageView.frame = self.bounds;
+    
 }
 
 #pragma mark - Class

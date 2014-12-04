@@ -49,6 +49,7 @@ static const CGFloat kButtonSize = 60.0f;
     
     self.overviewHeader.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.4f];
     
+    self.overviewHeader.height = 250.0f;
     self.tableView.tableHeaderView = self.overviewHeader;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -57,7 +58,6 @@ static const CGFloat kButtonSize = 60.0f;
     self.addButton.right = self.tableView.boundsWidth - kButtonOffset;
     
     self.addButtonBottom = self.addButton.bottom = [[UIScreen mainScreen] bounds].size.height - kButtonOffset;
-    
     [self.tableView bringSubviewToFront:self.addButton];
 }
 
@@ -76,11 +76,6 @@ static const CGFloat kButtonSize = 60.0f;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [PPOverviewTableViewCell heightForModel:nil];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 0.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -145,6 +140,8 @@ static const CGFloat kButtonSize = 60.0f;
 {
     self.addButton.y = scrollView.contentOffset.y + self.addButtonBottom - (kButtonSize/2);
     [self.tableView bringSubviewToFront:self.addButton];
+    
+    self.overviewHeader.y = scrollView.contentOffset.y/3;
 }
 
 

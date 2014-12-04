@@ -33,6 +33,7 @@ static const CGFloat shadowAlpha = 0.6f;
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        [self.backgroundCircle addSubview:self.plusImageView];
         [self addSubview:self.backgroundCircle];
 
     }
@@ -45,6 +46,8 @@ static const CGFloat shadowAlpha = 0.6f;
     
     self.backgroundCircle.frame = self.bounds;
     self.backgroundCircle.layer.cornerRadius = self.boundsHeight/2;
+    
+    self.plusImageView.center = self.backgroundCircle.center;
     
     [self.backgroundCircle.layer setShadowColor:[UIColor generalBlue].CGColor];
     [self.backgroundCircle.layer setShadowOpacity:shadowAlpha];
@@ -115,6 +118,14 @@ static const CGFloat shadowAlpha = 0.6f;
         _backgroundCircle.backgroundColor = [UIColor generalBlue];
     }
     return _backgroundCircle;
+}
+
+- (UIImageView *)plusImageView
+{
+    if (!_plusImageView) {
+        _plusImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"addEnabled"]];
+    }
+    return _plusImageView;
 }
 
 
