@@ -21,6 +21,7 @@
 		E59992DE1A1C653D009CF98B /* PennypotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E59992DD1A1C653D009CF98B /* PennypotTests.m */; };
 		E59992EC1A1C65F3009CF98B /* PPOverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E59992EB1A1C65F3009CF98B /* PPOverviewTableViewController.m */; };
 		E5BF773D1A2017C000AF4262 /* PPPennyPot.m in Sources */ = {isa = PBXBuildFile; fileRef = E5BF773C1A2017C000AF4262 /* PPPennyPot.m */; };
+		E5ECE3EE1A315AAF0001AB1A /* PPPennyPotDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5ECE3ED1A315AAF0001AB1A /* PPPennyPotDetailView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		E59992EB1A1C65F3009CF98B /* PPOverviewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOverviewTableViewController.m; sourceTree = "<group>"; };
 		E5BF773B1A2017C000AF4262 /* PPPennyPot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPPennyPot.h; sourceTree = "<group>"; };
 		E5BF773C1A2017C000AF4262 /* PPPennyPot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPPennyPot.m; sourceTree = "<group>"; };
+		E5ECE3EC1A315AAF0001AB1A /* PPPennyPotDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPPennyPotDetailView.h; sourceTree = "<group>"; };
+		E5ECE3ED1A315AAF0001AB1A /* PPPennyPotDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPPennyPotDetailView.m; sourceTree = "<group>"; };
 		E7DA516C448AAC530A2EAE75 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +116,7 @@
 		E565D59F1A1C6862003ADD6D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E5ECE3EB1A315A760001AB1A /* VC Views */,
 				E565D5A11A1C6A80003ADD6D /* Headers */,
 				E565D5A01A1C686F003ADD6D /* Cells */,
 				E53EEA601A2C50CA00F1BD88 /* PPAddButton.h */,
@@ -229,6 +233,15 @@
 				E5BF773C1A2017C000AF4262 /* PPPennyPot.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E5ECE3EB1A315A760001AB1A /* VC Views */ = {
+			isa = PBXGroup;
+			children = (
+				E5ECE3EC1A315AAF0001AB1A /* PPPennyPotDetailView.h */,
+				E5ECE3ED1A315AAF0001AB1A /* PPPennyPotDetailView.m */,
+			);
+			path = "VC Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,6 +384,7 @@
 				E524EA321A2AD5E000704FF6 /* PPModifyPennyPotViewController.m in Sources */,
 				E565D5A71A1C6C5D003ADD6D /* PPOverviewTableViewCell.m in Sources */,
 				E53EEA621A2C50CA00F1BD88 /* PPAddButton.m in Sources */,
+				E5ECE3EE1A315AAF0001AB1A /* PPPennyPotDetailView.m in Sources */,
 				E59992EC1A1C65F3009CF98B /* PPOverviewTableViewController.m in Sources */,
 				E5BF773D1A2017C000AF4262 /* PPPennyPot.m in Sources */,
 				E59992C41A1C653D009CF98B /* main.m in Sources */,

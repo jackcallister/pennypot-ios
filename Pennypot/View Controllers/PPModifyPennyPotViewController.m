@@ -7,8 +7,11 @@
 //
 
 #import "PPModifyPennyPotViewController.h"
+#import "PPPennyPotDetailView.h"
 
 @interface PPModifyPennyPotViewController ()
+
+@property (nonatomic, strong) PPPennyPotDetailView *detailView;
 
 @property (nonatomic, strong) UIBarButtonItem *saveBarButton;
 @property (nonatomic, strong) UIBarButtonItem *cancelBarButton;
@@ -24,6 +27,8 @@
         
         self.navigationItem.rightBarButtonItem = self.saveBarButton;
         self.navigationItem.leftBarButtonItem = self.cancelBarButton;
+        
+        self.view = self.detailView = [[PPPennyPotDetailView alloc] initWithObject:nil];
     }
     return self;
 }
@@ -31,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
 }
@@ -39,6 +45,7 @@
 
 - (IBAction)saveBarButtonItemPressed:(id)sender
 {
+    NSLog(@"%@", [self.detailView getObjectFromFields]);
     [self dismissViewControllerAnimated:YES completion:nil];
    
 }

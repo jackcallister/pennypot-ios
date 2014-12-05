@@ -57,7 +57,7 @@ static const CGFloat shadowAlpha = 0.6f;
 
 #pragma mark - Touch Events
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches withEventx:(UIEvent *)event
 {
     [self animateToSelectedState];
 }
