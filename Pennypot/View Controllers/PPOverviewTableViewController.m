@@ -16,9 +16,11 @@
 
 #import <ViewUtils/ViewUtils.h>
 
-@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, PPAddButtonDelegate>
+@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, PPAddButtonDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) CGFloat addButtonBottom;
+
+@property (nonatomic, strong) PPOverviewTableViewCell *modifiyingCell;
 
 @property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
 @property (nonatomic, strong) PPAddButton *addButton;
@@ -38,6 +40,7 @@ static const CGFloat kButtonSize = 60.0f;
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         [self.tableView addSubview:self.addButton];
+
     }
     return self;
 }
@@ -95,8 +98,6 @@ static const CGFloat kButtonSize = 60.0f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    PPPennyPot *pennyPot = [self.pen]
-    
     PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithMode:PPModifyModeEdit];
     
     UINavigationController *modifyNavigation = [[UINavigationController alloc] initWithRootViewController:modifyController];
@@ -111,13 +112,15 @@ static const CGFloat kButtonSize = 60.0f;
 
 - (void)overviewTableViewCell:(PPOverviewTableViewCell *)cell didSwipeWithCellMode:(PPOverviewCellSwipeMode)mode
 {
+    PPPennyPot *pennyToEdit = cell.pennyPot;
+    self.modifiyingCell = cell;
+    
     if (mode == PPOverviewCellSwipeTypeDelete) {
         
-        NSIndexPath *deletePath = [self.tableView indexPathForCell:cell];
-        
-        [[PPDataManager sharedManager] deletePennyObject:cell.pennyPot];
-        
-        [self.tableView deleteRowsAtIndexPaths:@[deletePath] withRowAnimation:UITableViewRowAnimationFade];
+        NSString *deleteString = [NSString stringWithFormat:@"Are you sure you want to delete %@", pennyToEdit.title];
+        UIAlertView *deleteAlert = [[UIAlertView alloc] initWithTitle:@"Delete?" message:deleteString delegate:self cancelButtonTitle:@"No"otherButtonTitles:@"Yes", nil];
+
+        [deleteAlert show];
         
     } else {
         
@@ -156,6 +159,25 @@ static const CGFloat kButtonSize = 60.0f;
     [self presentViewController:addNavigation animated:YES completion:nil];
 }
 
+#pragma mark - Alert View Delegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self deleteCell];
+    }
+}
+
+#pragma mark - Utilities
+
+- (void)deleteCell
+{
+    NSIndexPath *deletePath = [self.tableView indexPathForCell:self.modifiyingCell];
+    
+    [[PPDataManager sharedManager] deletePennyObject:self.modifiyingCell.pennyPot];
+    
+    [self.tableView deleteRowsAtIndexPaths:@[deletePath] withRowAnimation:UITableViewRowAnimationFade];
+}
 
 #pragma mark - Getters
 
