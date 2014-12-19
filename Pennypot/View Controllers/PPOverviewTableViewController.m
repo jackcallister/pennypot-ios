@@ -16,7 +16,7 @@
 
 #import <ViewUtils/ViewUtils.h>
 
-@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, PPAddButtonDelegate, UIAlertViewDelegate>
+@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, PPAddButtonDelegate, UIAlertViewDelegate, PPModifyPennyPotViewControllerDelegate>
 
 @property (nonatomic) CGFloat addButtonBottom;
 
@@ -24,8 +24,6 @@
 
 @property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
 @property (nonatomic, strong) PPAddButton *addButton;
-
-@property (nonatomic, strong) PPDataManager *dataManager;
 
 @end
 
@@ -85,7 +83,6 @@ static const CGFloat kButtonSize = 60.0f;
 {
     PPOverviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[PPOverviewTableViewCell reuseIdentifier]];
 
-
     cell.delegate = self;
     [cell configureWithModel:[[PPDataManager sharedManager] pennyPotAtPosition:indexPath.row]];
     
@@ -105,7 +102,6 @@ static const CGFloat kButtonSize = 60.0f;
     [self presentViewController:modifyNavigation animated:YES completion:^{
         
     }];
-    
 }
 
 #pragma mark - Custom Cell Delegate
@@ -125,7 +121,7 @@ static const CGFloat kButtonSize = 60.0f;
     } else {
         
         PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithMode:PPModifyModeEdit];
-        
+        modifyController.delegate = self;
         UINavigationController *modifyNavigation = [[UINavigationController alloc] initWithRootViewController:modifyController];
         
         [self presentViewController:modifyNavigation animated:YES completion:^{
@@ -133,7 +129,6 @@ static const CGFloat kButtonSize = 60.0f;
                 
             }];
         }];
-
     }
 }
 
@@ -147,13 +142,12 @@ static const CGFloat kButtonSize = 60.0f;
     self.overviewHeader.y = scrollView.contentOffset.y/3;
 }
 
-
 #pragma mark - Add Button Delegate
 
 - (void)addButtonPressed:(PPAddButton *)button
 {
     PPModifyPennyPotViewController *addController = [[PPModifyPennyPotViewController alloc] initWithMode:PPModifyModeAdd];
-    
+    addController.delegate = self;
     UINavigationController *addNavigation = [[UINavigationController alloc] initWithRootViewController:addController];
     
     [self presentViewController:addNavigation animated:YES completion:nil];
@@ -166,6 +160,14 @@ static const CGFloat kButtonSize = 60.0f;
     if (buttonIndex == 1) {
         [self deleteCell];
     }
+}
+
+#pragma mark - Modify View Controller delegate
+
+- (void)modifyViewControllerDidReturnPennyPot:(PPPennyPot *)pennyPot
+{
+    [[PPDataManager sharedManager] addPennyPotToArray:pennyPot];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Utilities

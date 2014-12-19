@@ -8,6 +8,7 @@
 
 #import "PPModifyPennyPotViewController.h"
 #import "PPPennyPotDetailView.h"
+#import "PPPennyPot.h"
 
 @interface PPModifyPennyPotViewController ()
 
@@ -45,7 +46,11 @@
 
 - (IBAction)saveBarButtonItemPressed:(id)sender
 {
-    NSLog(@"%@", [self.detailView getObjectFromFields]);
+    PPPennyPot *modifiedObject = [self.detailView getObjectFromFields];
+
+    if ([self.delegate respondsToSelector:@selector(modifyViewControllerDidReturnPennyPot:)]) {
+        [self.delegate modifyViewControllerDidReturnPennyPot:modifiedObject];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
    
 }
