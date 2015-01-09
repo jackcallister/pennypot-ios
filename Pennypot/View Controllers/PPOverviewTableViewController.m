@@ -115,7 +115,7 @@ static const CGFloat kButtonSize = 60.0f;
         
         NSString *deleteString = [NSString stringWithFormat:@"Are you sure you want to delete %@", pennyToEdit.title];
         UIAlertView *deleteAlert = [[UIAlertView alloc] initWithTitle:@"Delete?" message:deleteString delegate:self cancelButtonTitle:@"No"otherButtonTitles:@"Yes", nil];
-
+        deleteAlert.delegate = self;
         [deleteAlert show];
         
     } else {
@@ -125,9 +125,7 @@ static const CGFloat kButtonSize = 60.0f;
         UINavigationController *modifyNavigation = [[UINavigationController alloc] initWithRootViewController:modifyController];
         
         [self presentViewController:modifyNavigation animated:YES completion:^{
-            [cell swipeToOriginWithCompletion:^{
-                
-            }];
+            [cell swipeToOriginWithCompletion:nil];
         }];
     }
 }
@@ -159,7 +157,13 @@ static const CGFloat kButtonSize = 60.0f;
 {
     if (buttonIndex == 1) {
         [self deleteCell];
+    } else {
+        if (self.modifiyingCell) {
+            [self.modifiyingCell swipeToOriginWithCompletion:nil];
+        }
     }
+    
+    self.modifiyingCell = nil;
 }
 
 #pragma mark - Modify View Controller delegate
