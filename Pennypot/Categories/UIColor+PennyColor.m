@@ -20,12 +20,12 @@
 
 + (UIColor *)deleteColor
 {
-  return [UIColor colorWithRed:0.776 green:0.157 blue:0.157 alpha:1] /*#c62828*/;
+    return [UIColor colorWithRed:0.988 green:0.349 blue:0.349 alpha:1]; /*#fc5959*/
 }
 
 + (UIColor *)increaseColor
 {
-    return [UIColor colorWithRed:0.404 green:0.227 blue:0.718 alpha:1] /*#673ab7*/;
+    return [UIColor colorWithRed:0.412 green:0.482 blue:0.678 alpha:1]; /*#697bad*/
 }
 
 + (UIColor *)backroundGrey

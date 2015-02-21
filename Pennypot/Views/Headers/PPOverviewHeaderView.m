@@ -14,7 +14,10 @@
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 
+
 @end
+
+static const CGFloat kPadding = 20.0f;
 
 @implementation PPOverviewHeaderView
 
@@ -22,8 +25,11 @@
 {
     self = [super init];
     if (self) {
-        self.backgroundImageView = [[UIImageView alloc] initWithImage:image];
+        
+        self.backgroundImageView.image = image;
+        
         [self addSubview:self.backgroundImageView];
+        [self addSubview:self.addButton];
     }
     return self;
 }
@@ -32,16 +38,39 @@
 {
     [super layoutSubviews];
     
+    self.addButton.height = self.addButton.width = 35.0f;
+    self.addButton.right = self.boundsWidth - kPadding;
+    self.addButton.bottom = self.boundsHeight - kPadding;
+    
     self.backgroundImageView.frame = self.bounds;
     
 }
 
+
+#pragma mark - Getters
+
+- (UIButton *)addButton
+{
+    if(!_addButton) {
+        _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_addButton setTitle:@"Add" forState:UIControlStateNormal];
+    }
+    return _addButton;
+}
+
+- (UIImageView *)backgroundImageView
+{
+    if (!_backgroundImageView) {
+        _backgroundImageView = [UIImageView new];
+    }
+    return _backgroundImageView;
+}
+
 #pragma mark - Class
 
-+ (CGFloat)heightForImage:(UIImage *)image
++ (CGFloat)headerHeight
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    return imageView.frame.size.height;
+    return 200.0f;
 }
 
 @end

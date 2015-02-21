@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class PPOverviewHeaderView;
+
+
 @interface PPOverviewHeaderView : UIView
+
+@property (nonatomic, strong) UIButton *addButton;
 
 - (id)initWithImage:(UIImage *)image;
 // Class
-+ (CGFloat)heightForImage:(UIImage *)image;
++ (CGFloat)headerHeight;
 
 @end
