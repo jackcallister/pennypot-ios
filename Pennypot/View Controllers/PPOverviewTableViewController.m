@@ -156,15 +156,13 @@
 {
     CGFloat pointToAnimate = self.isCreatingObject ?  self.overviewHeader.bottom : self.overviewHeader.bottom + self.createView.height;
     
-    [UIView animateWithDuration:0.8f delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:.10f options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.6f delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:.10f options:UIViewAnimationOptionCurveEaseIn animations:^{
         
         self.createView.bottom = pointToAnimate;
         
-    } completion:^(BOOL finished) {
-        
-        self.isCreatingObject = !self.isCreatingObject;
+    } completion:nil];
     
-    }];
+    self.isCreatingObject = !self.isCreatingObject;
 }
 
 #pragma mark - Utilities
