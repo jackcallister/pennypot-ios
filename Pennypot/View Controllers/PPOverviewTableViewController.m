@@ -12,6 +12,7 @@
 #import "PPDataManager.h"
 #import "PPModifyPennyPotViewController.h"
 #import "PPCreateObjectView.h"
+#import "PPAnimatingAddControl.h"
 
 #import <ViewUtils/ViewUtils.h>
 

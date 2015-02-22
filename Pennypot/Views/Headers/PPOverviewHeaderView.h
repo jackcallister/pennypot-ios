@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class PPAnimatingAddControl;
 
 @class PPOverviewHeaderView;
 
 
 @interface PPOverviewHeaderView : UIView
 
-@property (nonatomic, strong) UIButton *addButton;
+@property (nonatomic, strong) PPAnimatingAddControl *addButton;
 
 - (id)initWithImage:(UIImage *)image;
 // Class

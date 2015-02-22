@@ -23,6 +23,8 @@
 @end
 
 static const CGFloat kHorizontalPadding = 15.0f;
+static const CGFloat kTextPadding = 5.0f;
+
 
 @implementation PPCreateObjectView
 
@@ -57,10 +59,13 @@ static const CGFloat kHorizontalPadding = 15.0f;
     self.nameLabel.height = self.nameTextField.height = self.valueLabel.height = self.valueTextField.height = (self.boundsHeight/2) - self.keyline.height;
     
     self.nameLabel.top = self.nameTextField.top = 0;
-    self.valueLabel.bottom = self.valueTextField.bottom = self.boundsHeight;
+    self.valueLabel.bottom = self.valueTextField.bottom = self.valueTextField.bottom = self.boundsHeight;
     
     self.nameLabel.left = self.valueLabel.left = kHorizontalPadding;
     
+    self.nameTextField.left = self.valueTextField.left = self.valueLabel.right + kTextPadding;
+    
+    self.valueTextField.width = self.nameTextField.width = self.boundsWidth - (self.valueLabel.right - (kTextPadding * 2));
 }
 
 #pragma mark - Getters

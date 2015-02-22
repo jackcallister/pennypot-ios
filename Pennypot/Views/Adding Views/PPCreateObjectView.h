@@ -10,7 +10,6 @@
 
 @interface PPCreateObjectView : UIView
 
-
 + (CGFloat)heightForView;
 
 @end

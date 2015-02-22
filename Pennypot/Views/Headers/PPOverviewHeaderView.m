@@ -8,6 +8,8 @@
 
 #import "PPOverviewHeaderView.h"
 
+#import "PPAnimatingAddControl.h"
+
 #import <ViewUtils/ViewUtils.h>
 
 @interface PPOverviewHeaderView ()
@@ -30,6 +32,7 @@ static const CGFloat kPadding = 20.0f;
         
         [self addSubview:self.backgroundImageView];
         [self addSubview:self.addButton];
+        
     }
     return self;
 }
@@ -38,22 +41,22 @@ static const CGFloat kPadding = 20.0f;
 {
     [super layoutSubviews];
     
-    self.addButton.height = self.addButton.width = 35.0f;
+    self.addButton.height = self.addButton.width = 25.0f;
     self.addButton.right = self.boundsWidth - kPadding;
     self.addButton.bottom = self.boundsHeight - kPadding;
     
     self.backgroundImageView.frame = self.bounds;
     
+//    self.addIcon.height = self.addIcon.width = 40.0f;
 }
 
 
 #pragma mark - Getters
 
-- (UIButton *)addButton
+- (PPAnimatingAddControl *)addButton
 {
     if(!_addButton) {
-        _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addButton setTitle:@"Add" forState:UIControlStateNormal];
+        _addButton = [PPAnimatingAddControl new];
     }
     return _addButton;
 }
@@ -65,6 +68,7 @@ static const CGFloat kPadding = 20.0f;
     }
     return _backgroundImageView;
 }
+
 
 #pragma mark - Class
 
