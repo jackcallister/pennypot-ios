@@ -151,6 +151,11 @@
 
 - (IBAction)createViewConfirmButtonPressed:(id)sender
 {
+    if (self.isCreatingObject && ![self.createView shouldDismiss]) {
+        [self.createView animateForEmptyTextFields];
+        return;
+    }
+    
     [self animateCreateView];
 }
 

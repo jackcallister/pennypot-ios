@@ -12,6 +12,9 @@
 
 @property (nonatomic, strong) UIButton *confirmButton;
 
+- (void)animateForEmptyTextFields;
+- (BOOL)shouldDismiss;
+
 - (void)initialResponder;
 - (void)resignResponders;
 

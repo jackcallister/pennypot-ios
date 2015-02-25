@@ -12,6 +12,9 @@
 
 @interface PPCreateObjectView () <UITextFieldDelegate>
 
+@property (nonatomic) BOOL nameTextFieldIsEmpty;
+@property (nonatomic) BOOL valueTextFieldIsEmpty;
+
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *valueLabel;
 
@@ -122,7 +125,48 @@ static const CGFloat kButtonHeight = 45.0f;
     }
 }
 
+#pragma mark - User feedback
+
+- (void)animateForEmptyTextFields
+{
+    if (self.nameTextFieldIsEmpty) {
+        [self shake:self.nameLabel];
+    }
+    
+    if (self.valueTextFieldIsEmpty) {
+        [self shake:self.valueLabel];
+    }
+}
+
+- (void)shake:(UIView *)view
+{
+    CABasicAnimation *animation =
+    [CABasicAnimation animationWithKeyPath:@"position"];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:.17:.67:.83:.67]];
+
+    [animation setDuration:0.08];
+    [animation setRepeatCount:2];
+    [animation setAutoreverses:YES];
+    
+    [animation setFromValue:[NSValue valueWithCGPoint:
+                             (CGPoint){[view center].x - 5.0f, [view center].y}]];
+    
+    [animation setToValue:[NSValue valueWithCGPoint:
+                           (CGPoint){[view center].x + 5.0f, [view center].y}]];
+    
+    [[view layer] addAnimation:animation forKey:@"position"];
+}
+
 #pragma mark - External
+
+- (BOOL)shouldDismiss
+{
+    if (!self.nameTextFieldIsEmpty && !self.valueTextFieldIsEmpty) {
+        return YES;
+    }
+    [self animateForEmptyTextFields];
+    return NO;
+}
 
 - (void)resignResponders
 {
@@ -136,6 +180,17 @@ static const CGFloat kButtonHeight = 45.0f;
 }
 
 #pragma mark - Getters
+
+- (BOOL)nameTextFieldIsEmpty
+{
+    NSLog(@"%@", @(self.nameTextField.text.length));
+    return self.nameTextField.text.length == 0 ? YES : NO;
+}
+
+- (BOOL)valueTextFieldIsEmpty
+{
+    return self.valueTextField.text.length <= 1 ? YES : NO;
+}
 
 - (UILabel *)nameLabel
 {
