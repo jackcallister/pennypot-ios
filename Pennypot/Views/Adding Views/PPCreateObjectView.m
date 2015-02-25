@@ -164,7 +164,6 @@ static const CGFloat kButtonHeight = 45.0f;
     if (!self.nameTextFieldIsEmpty && !self.valueTextFieldIsEmpty) {
         return YES;
     }
-    [self animateForEmptyTextFields];
     return NO;
 }
 
@@ -183,7 +182,6 @@ static const CGFloat kButtonHeight = 45.0f;
 
 - (BOOL)nameTextFieldIsEmpty
 {
-    NSLog(@"%@", @(self.nameTextField.text.length));
     return self.nameTextField.text.length == 0 ? YES : NO;
 }
 
