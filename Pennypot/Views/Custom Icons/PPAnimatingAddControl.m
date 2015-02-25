@@ -12,6 +12,7 @@
 
 @interface PPAnimatingAddControl ()
 
+@property (nonatomic, strong) UIView *containingView;
 @property (nonatomic, strong) CAShapeLayer *verticalLine;
 @property (nonatomic, strong) CAShapeLayer *horizontalLine;
 
@@ -39,8 +40,11 @@ static const CGFloat lineWidth = 1.0f;
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
         [self addTarget:self action:@selector(animateToState:) forControlEvents:UIControlEventTouchUpInside];
-        [self.layer addSublayer:self.verticalLine];
-        [self.layer addSublayer:self.horizontalLine];
+
+        [self addSubview:self.containingView];
+        
+        [self.containingView.layer addSublayer:self.verticalLine];
+        [self.containingView.layer addSublayer:self.horizontalLine];
     }
     return self;
 }
@@ -48,14 +52,19 @@ static const CGFloat lineWidth = 1.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    self.containingView.width = self.containingView.height = 25.0f;
+    self.containingView.left = self.boundsWidth/2 - self.containingView.width/2;
+    self.containingView.top = self.boundsHeight/2 - self.containingView.height/2;
+    
     [self createShapeLayers];
 }
 
 - (void)createShapeLayers
 {
-    self.verticalLine.path = [UIBezierPath bezierPathWithRect: CGRectMake(self.boundsWidth/2 - (lineWidth/2), 0, lineWidth, self.boundsHeight)].CGPath;
+    self.verticalLine.path = [UIBezierPath bezierPathWithRect: CGRectMake(self.containingView.boundsWidth/2 - (lineWidth/2), 0, lineWidth, self.containingView.boundsHeight)].CGPath;
 
-    self.horizontalLine.path = [UIBezierPath bezierPathWithRect: CGRectMake(0, self.boundsHeight/2 - (lineWidth/2), self.boundsWidth, lineWidth)].CGPath;
+    self.horizontalLine.path = [UIBezierPath bezierPathWithRect: CGRectMake(0, self.containingView.boundsHeight/2 - (lineWidth/2), self.containingView.boundsWidth, lineWidth)].CGPath;
 
     self.verticalLine.strokeColor = self.verticalLine.fillColor= [UIColor whiteColor].CGColor;
     self.horizontalLine.strokeColor = self.horizontalLine.fillColor = [UIColor whiteColor].CGColor;
@@ -96,6 +105,15 @@ static const CGFloat lineWidth = 1.0f;
 }
 
 #pragma mark - Getters
+
+- (UIView *)containingView
+{
+    if (!_containingView) {
+        _containingView = [UIView new];
+        [_containingView setUserInteractionEnabled:NO];
+    }
+    return _containingView;
+}
 
 - (CAShapeLayer *)verticalLine
 {

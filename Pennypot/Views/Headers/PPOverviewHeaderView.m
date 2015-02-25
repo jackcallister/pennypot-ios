@@ -41,7 +41,7 @@ static const CGFloat kPadding = 20.0f;
 {
     [super layoutSubviews];
     
-    self.addButton.height = self.addButton.width = 25.0f;
+    self.addButton.height = self.addButton.width = 50;
     self.addButton.right = self.boundsWidth - kPadding;
     self.addButton.bottom = self.boundsHeight - kPadding;
     

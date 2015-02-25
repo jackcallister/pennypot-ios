@@ -27,7 +27,7 @@
 static const CGFloat kHorizontalPadding = 15.0f;
 static const CGFloat kTextPadding = 5.0f;
 
-static const CGFloat kButtonHeight = 40.0f;
+static const CGFloat kButtonHeight = 45.0f;
 
 @implementation PPCreateObjectView
 
@@ -88,14 +88,17 @@ static const CGFloat kButtonHeight = 40.0f;
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField == self.valueTextField) {
-        textField.text = [NSString stringWithFormat:@"$%@", textField.text];
+        if (textField.text.length == 0) {
+            textField.text = [NSString stringWithFormat:@"$%@", textField.text];
+        }
     }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (textField == self.valueTextField) {
-//        textField.text = [NSString stringWithFormat:@"$%@", textField.text];
+    
+    if (textField == self.valueTextField && textField.text.length == 1 && [string isEqualToString:@""]) {
+        return NO;
     }
     return YES;
 }
@@ -108,6 +111,15 @@ static const CGFloat kButtonHeight = 40.0f;
         return NO;
     }
     return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == self.valueTextField) {
+        if (textField.text.length == 1) {
+            textField.text = @"";
+        }
+    }
 }
 
 #pragma mark - External
@@ -197,7 +209,8 @@ static const CGFloat kButtonHeight = 40.0f;
 
 + (CGFloat)heightForView
 {
-    return 157.0f;
+    // 107 without button
+    return 152.0f;
 }
 
 @end
