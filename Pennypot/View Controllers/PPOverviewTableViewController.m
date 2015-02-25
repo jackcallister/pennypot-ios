@@ -175,18 +175,23 @@
 {
     CGFloat pointToAnimate;
     
+    self.isCreatingObject = !self.isCreatingObject;
+    
     if (self.isCreatingObject) {
+        pointToAnimate = self.overviewHeader.bottom + self.createView.height;
+        self.tableView.scrollEnabled = NO;
+    } else {
         [self.createView resignResponders];
         pointToAnimate = self.overviewHeader.bottom;
         
         self.tableView.scrollEnabled = YES;
-    } else {
-        pointToAnimate = self.overviewHeader.bottom + self.createView.height;
-        self.tableView.scrollEnabled = NO;
     }
     
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    [self animateTransparentBackgroundView];
+    
     [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:0.65f initialSpringVelocity:.10f options:UIViewAnimationOptionCurveEaseIn animations:^{
-        
+
         self.createView.bottom = pointToAnimate;
         
     } completion:^(BOOL finished) {
@@ -195,8 +200,6 @@
         }
     }];
     
-    self.isCreatingObject = !self.isCreatingObject;
-    [self animateTransparentBackgroundView];
 }
 
 - (void)animateTransparentBackgroundView
@@ -256,12 +259,9 @@
     keyboardFrame.origin.y -= keyboardFrame.size.height;
     CGPoint createViewBottom = (CGPoint){0, self.createView.bottom};
     
-    NSLog(@"KEYBOARD %@", NSStringFromCGRect(keyboardFrame));
-    NSLog(@"%@", NSStringFromCGPoint(createViewBottom));
-    
     if (CGRectContainsPoint(keyboardFrame, createViewBottom)) {
         
-        CGFloat offset = createViewBottom.y - keyboardFrame.size.height;
+        CGFloat offset = createViewBottom.y - (self.view.boundsHeight -keyboardFrame.size.height);
         
         [self.tableView setContentOffset:CGPointMake(0, offset) animated:YES];
     }
@@ -270,7 +270,6 @@
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-
 }
 
 #pragma mark - Getters
