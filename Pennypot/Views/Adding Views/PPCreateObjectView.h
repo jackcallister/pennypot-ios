@@ -10,6 +10,11 @@
 
 @interface PPCreateObjectView : UIView
 
+@property (nonatomic, strong) UIButton *confirmButton;
+
+- (void)initialResponder;
+- (void)resignResponders;
+
 + (CGFloat)heightForView;
 
 @end

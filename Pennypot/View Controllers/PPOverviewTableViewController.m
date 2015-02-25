@@ -24,6 +24,8 @@
 @property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
 @property (nonatomic, strong) PPCreateObjectView *createView;
 
+@property (nonatomic, strong) UIView *transparentBackgroundView;
+
 - (void)animateCreateView;
 
 @end
@@ -50,6 +52,8 @@
     
     self.tableView.tableHeaderView = self.overviewHeader;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self registerForKeyboardNotifications];
 }
 
 - (void)viewWillLayoutSubviews
@@ -60,6 +64,15 @@
     self.createView.height = [PPCreateObjectView heightForView];
 
     self.createView.top = self.isCreatingObject ? self.overviewHeader.bottom : self.overviewHeader.bottom - self.createView.height;
+    
+    self.transparentBackgroundView.height = self.view.boundsHeight - self.overviewHeader.bottom;
+    self.transparentBackgroundView.width = self.view.boundsWidth;
+    self.transparentBackgroundView.bottom = self.view.boundsHeight;
+}
+
+- (void)dealloc
+{
+    [self deregisterForKeyboardNotifications];
 }
 
 #pragma mark - Table View Data Source
@@ -136,6 +149,11 @@
     [self animateCreateView];
 }
 
+- (IBAction)createViewConfirmButtonPressed:(id)sender
+{
+    [self animateCreateView];
+}
+
 #pragma mark - Alert View Delegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -155,15 +173,46 @@
 
 - (void)animateCreateView
 {
-    CGFloat pointToAnimate = self.isCreatingObject ?  self.overviewHeader.bottom : self.overviewHeader.bottom + self.createView.height;
+    CGFloat pointToAnimate;
     
-    [UIView animateWithDuration:0.6f delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:.10f options:UIViewAnimationOptionCurveEaseIn animations:^{
+    if (self.isCreatingObject) {
+        [self.createView resignResponders];
+        pointToAnimate = self.overviewHeader.bottom;
+        
+        self.tableView.scrollEnabled = YES;
+    } else {
+        pointToAnimate = self.overviewHeader.bottom + self.createView.height;
+        self.tableView.scrollEnabled = NO;
+    }
+    
+    [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:0.65f initialSpringVelocity:.10f options:UIViewAnimationOptionCurveEaseIn animations:^{
         
         self.createView.bottom = pointToAnimate;
         
-    } completion:nil];
+    } completion:^(BOOL finished) {
+        if (self.isCreatingObject) {
+            [self.createView initialResponder];
+        }
+    }];
     
     self.isCreatingObject = !self.isCreatingObject;
+    [self animateTransparentBackgroundView];
+}
+
+- (void)animateTransparentBackgroundView
+{
+    if (self.isCreatingObject) {
+        [self.tableView insertSubview:self.transparentBackgroundView belowSubview:self.createView];
+    }
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        self.transparentBackgroundView.alpha = self.isCreatingObject ? 1.0f : 0.0f;
+        
+    } completion:^(BOOL finished) {
+        if (!self.isCreatingObject) {
+            [self.transparentBackgroundView removeFromSuperview];
+        }
+    }];
 }
 
 #pragma mark - Utilities
@@ -175,6 +224,53 @@
     [[PPDataManager sharedManager] deletePennyObject:self.modifiyingCell.pennyPot];
     
     [self.tableView deleteRowsAtIndexPaths:@[deletePath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+#pragma mark - Keyboard Notifications
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)deregisterForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:UIKeyboardDidShowNotification];
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:UIKeyboardWillHideNotification];
+}
+
+#pragma mark - Keyboard Listeners
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    
+    CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    
+    // To find the top of the keyboard coord.
+    keyboardFrame.origin.y -= keyboardFrame.size.height;
+    CGPoint createViewBottom = (CGPoint){0, self.createView.bottom};
+    
+    NSLog(@"KEYBOARD %@", NSStringFromCGRect(keyboardFrame));
+    NSLog(@"%@", NSStringFromCGPoint(createViewBottom));
+    
+    if (CGRectContainsPoint(keyboardFrame, createViewBottom)) {
+        
+        CGFloat offset = createViewBottom.y - keyboardFrame.size.height;
+        
+        [self.tableView setContentOffset:CGPointMake(0, offset) animated:YES];
+    }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+
 }
 
 #pragma mark - Getters
@@ -192,9 +288,19 @@
 {
     if (!_createView) {
         _createView = [[PPCreateObjectView alloc] initWithFrame:CGRectZero];
-        
+        [_createView.confirmButton addTarget:self action:@selector(createViewConfirmButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _createView;
+}
+
+- (UIView *)transparentBackgroundView
+{
+    if (!_transparentBackgroundView) {
+        _transparentBackgroundView = [UIView new];
+        _transparentBackgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+        _transparentBackgroundView.alpha = 0.0f;
+    }
+    return _transparentBackgroundView;
 }
 
 @end
