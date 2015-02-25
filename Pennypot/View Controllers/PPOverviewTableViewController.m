@@ -254,17 +254,13 @@
     NSDictionary* info = [aNotification userInfo];
     
     CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-    
-    // To find the top of the keyboard coord.
-    keyboardFrame.origin.y -= keyboardFrame.size.height;
     CGPoint createViewBottom = (CGPoint){0, self.createView.bottom};
     
-    if (CGRectContainsPoint(keyboardFrame, createViewBottom)) {
-        
-        CGFloat offset = createViewBottom.y - (self.view.boundsHeight -keyboardFrame.size.height);
-        
+    CGFloat offset = createViewBottom.y - (self.view.boundsHeight -keyboardFrame.size.height);
+    if (offset > 0) {
         [self.tableView setContentOffset:CGPointMake(0, offset) animated:YES];
     }
+    
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
