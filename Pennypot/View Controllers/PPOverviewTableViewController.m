@@ -152,10 +152,12 @@
 - (IBAction)createViewConfirmButtonPressed:(id)sender
 {
     if (self.isCreatingObject && ![self.createView shouldDismiss]) {
-        [self.createView animateForEmptyTextFields];
         return;
     }
+    [[PPDataManager sharedManager] addPennyPotToArray:[self.createView retrieveObjectFromForm]];
     
+    [self.createView animateForEmptyTextFields];
+    [self.tableView reloadData];
     [self animateCreateView];
 }
 

@@ -9,6 +9,7 @@
 #import "PPCreateObjectView.h"
 #import <ViewUtils/ViewUtils.h>
 #import "UIColor+PennyColor.h"
+#import "PPPennyPot.h"
 
 @interface PPCreateObjectView () <UITextFieldDelegate>
 
@@ -24,6 +25,8 @@
 
 @property (nonatomic, strong) UIView *keyline;
 @property (nonatomic, strong) UIView *bottomKeyline;
+
+- (CGFloat)valueFromTextField;
 
 @end
 
@@ -167,6 +170,13 @@ static const CGFloat kButtonHeight = 45.0f;
     return NO;
 }
 
+- (PPPennyPot *)retrieveObjectFromForm
+{
+    PPPennyPot *object = [[PPPennyPot alloc] initWithTitle:self.nameTextField.text andSavingsGoal: [self valueFromTextField]];
+    return object;
+    
+}
+
 - (void)resignResponders
 {
     [self.nameTextField resignFirstResponder];
@@ -176,6 +186,14 @@ static const CGFloat kButtonHeight = 45.0f;
 - (void)initialResponder
 {
     [self.nameTextField becomeFirstResponder];
+}
+
+#pragma mark - Util
+
+- (CGFloat)valueFromTextField
+{
+    return [[self.valueTextField.text substringFromIndex:1] floatValue];
+    
 }
 
 #pragma mark - Getters

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class PPPennyPot;
+
 @interface PPCreateObjectView : UIView
 
 @property (nonatomic, strong) UIButton *confirmButton;
@@ -17,6 +19,8 @@
 
 - (void)initialResponder;
 - (void)resignResponders;
+
+- (PPPennyPot *)retrieveObjectFromForm;
 
 + (CGFloat)heightForView;
 
