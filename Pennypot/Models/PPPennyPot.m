@@ -35,6 +35,29 @@
     return self;
 }
 
+#pragma mark - User defaults
+
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeObject:self.title forKey:@"title"];
+    [encoder encodeInteger:self.savingsGoal forKey:@"savingsGoal"];
+    [encoder encodeInteger:self.currentProgress forKey:@"currentProgress"];
+    [encoder encodeFloat:self.currentPercent forKey:@"currentPercent"];
+    [encoder encodeObject:self.timestamp forKey:@"timestamp"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    if((self = [super init])) {
+        self.title = [decoder decodeObjectForKey:@"title"];
+        self.savingsGoal = [decoder decodeIntegerForKey:@"savingsGoal"];
+        self.currentProgress = [decoder decodeIntegerForKey:@"currentProgress"];
+        self.currentPercent = [decoder decodeFloatForKey:@"currentPercent"];
+        self.timestamp = [decoder decodeObjectForKey:@"timestamp"];
+    }
+    return self;
+}
+
 #pragma mark - Public
 
 - (CGFloat)getProgressWidthFrom:(CGFloat)maxWidth

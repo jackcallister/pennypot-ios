@@ -15,6 +15,8 @@
 
 @end
 
+static NSString * const kUserDefaultKey = @"PennyObjects";
+
 @implementation PPDataManager
 
 + (id)sharedManager
@@ -31,7 +33,7 @@
 {
     if (self = [super init]) {
         
-        self.pennyData = [NSArray new];
+        self.pennyData = [self retrieveUserdefaults];
         
         PPPennyPot *pennyOne = [[PPPennyPot alloc] initWithTitle:@"New York" andSavingsGoal:3000];
         PPPennyPot *pennyTwo = [[PPPennyPot alloc] initWithTitle:@"Skiing" andSavingsGoal:500];
@@ -80,6 +82,7 @@
     [addArray addObject:pennyPot];
     
     self.pennyData = [NSArray arrayWithArray:addArray];
+    [self saveToUserDefaults];
 }
 
 - (void)deletePennyObject:(PPPennyPot *)pennyObject
@@ -89,6 +92,7 @@
         [deleteArray removeObject:pennyObject];
         self.pennyData = [NSArray arrayWithArray:deleteArray];
     }
+    [self saveToUserDefaults];
 }
 
 - (PPPennyPot *)pennyPotAtPosition:(NSInteger)position
@@ -96,6 +100,21 @@
     return self.pennyData[position];
 }
 
+#pragma mark - User Defaults
 
+- (void)saveToUserDefaults
+{
+    NSData *rawObjectData = [NSKeyedArchiver archivedDataWithRootObject:self.pennyData];
+    [[NSUserDefaults standardUserDefaults] setObject:rawObjectData forKey:kUserDefaultKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSArray *)retrieveUserdefaults
+{
+    NSArray *rawObjectArray = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultKey]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    return rawObjectArray;
+}
 
 @end
