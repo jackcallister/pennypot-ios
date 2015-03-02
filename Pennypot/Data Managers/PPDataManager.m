@@ -54,7 +54,7 @@ static NSString * const kUserDefaultKey = @"PennyObjects";
 {
     NSMutableArray *addArray = [NSMutableArray arrayWithArray:self.pennyData];
     
-    [addArray addObject:pennyPot];
+    [addArray insertObject:pennyPot atIndex:0];
     
     self.pennyData = [NSArray arrayWithArray:addArray];
     [self saveToUserDefaults];
