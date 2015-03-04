@@ -23,9 +23,10 @@
 @property (nonatomic, strong) UITextField *nameTextField;
 @property (nonatomic, strong) UITextField *valueTextField;
 
-
 @property (nonatomic, strong) UIView *keyline;
 @property (nonatomic, strong) UIView *bottomKeyline;
+
+@property (nonatomic, strong) UIView *animationPaddingView;
 
 - (CGFloat)valueFromTextField;
 
@@ -49,8 +50,7 @@ static const CGFloat kButtonHeight = 45.0f;
         [self addSubview:self.valueTextField];
         [self addSubview:self.bottomKeyline];
         [self addSubview:self.confirmButton];
-
-        
+        [self addSubview:self.animationPaddingView];
         
         [self.nameLabel sizeToFit];
         [self.valueLabel sizeToFit];
@@ -90,6 +90,11 @@ static const CGFloat kButtonHeight = 45.0f;
     self.valueTextField.width = self.nameTextField.width = self.boundsWidth - (self.valueLabel.right - (kTextPadding * 2));
     
     self.bottomKeyline.top = self.valueLabel.bottom;
+    
+    // To create a white background during 'show' animations.
+    self.animationPaddingView.height = 30.0f;
+    self.animationPaddingView.width = self.boundsWidth;
+    self.animationPaddingView.bottom = 0;
 }
 
 #pragma mark - Text Field Delegate
@@ -287,6 +292,15 @@ static const CGFloat kButtonHeight = 45.0f;
         [_confirmButton addTarget:self action:@selector(confirmButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _confirmButton;
+}
+
+- (UIView *)animationPaddingView
+{
+    if (!_animationPaddingView) {
+        _animationPaddingView = [UIView new];
+        _animationPaddingView.backgroundColor = [UIColor whiteColor];
+    }
+    return _animationPaddingView;
 }
 
 #pragma mark - Class

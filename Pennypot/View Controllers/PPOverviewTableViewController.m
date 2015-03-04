@@ -150,17 +150,19 @@
 - (void)stateChangedNotificationReceived:(NSNotification *)sender
 {
     BOOL didOriginateFromIcon = [PPObjectCreationNotificationManager didOriginateFromAddControl:[sender object]];
-
     BOOL shouldChangeUIState = [PPObjectCreationNotificationManager doesContainUIChangeIntention:[sender object]];
     
+    // This is from Cross Icon
     if (shouldChangeUIState && didOriginateFromIcon) {
         [self animateCreateView];
     
+    // This is an empty create view! So let's shake the labels
     } else if (self.isCreatingObject && ![self.createView shouldDismiss] && !didOriginateFromIcon) {
         
         [self.createView animateForEmptyTextFields];
         
-    } else { // Shown, Add Button used. should return.
+    // Let's actually create this object. Yeeeha.
+    } else {
         
         [[PPDataManager sharedManager] addPennyPotToArray:[self.createView retrieveObjectFromForm]];
         
