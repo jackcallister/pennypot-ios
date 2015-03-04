@@ -13,6 +13,7 @@
 #import "PPModifyPennyPotViewController.h"
 #import "PPCreateObjectView.h"
 #import "PPAnimatingAddControl.h"
+#import "PPObjectCreationNotificationManager.h"
 
 #import <ViewUtils/ViewUtils.h>
 
@@ -36,7 +37,7 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        
+        [PPObjectCreationNotificationManager registerForStateChangedNotificationWithObserver:self andStateChangeSelector:@selector(stateChangedNotificationReceived:)];
     }
     return self;
 }
@@ -72,6 +73,8 @@
 
 - (void)dealloc
 {
+    [PPObjectCreationNotificationManager deregisterForStateChangedNotificationWithObserver:self];
+    
     [self deregisterForKeyboardNotifications];
 }
 
@@ -144,21 +147,25 @@
 
 #pragma mark - Add Button Actions
 
-- (IBAction)headerViewAddButtonPressed:(id)sender
+- (void)stateChangedNotificationReceived:(NSNotification *)sender
 {
-    [self animateCreateView];
-}
-
-- (IBAction)createViewConfirmButtonPressed:(id)sender
-{
-    if (self.isCreatingObject && ![self.createView shouldDismiss]) {
-        return;
-    }
-    [[PPDataManager sharedManager] addPennyPotToArray:[self.createView retrieveObjectFromForm]];
+    BOOL originatedFromAnimatingIcon = [[sender object] boolValue];
     
-    [self.createView animateForEmptyTextFields];
-    [self.tableView reloadData];
-    [self animateCreateView];
+    if (originatedFromAnimatingIcon) {
+        [self animateCreateView];
+
+    } else if (self.isCreatingObject && ![self.createView shouldDismiss]) {
+        
+        [self.createView animateForEmptyTextFields];
+        
+    } else { // Shown, Add Button used. should return.
+        
+        [[PPDataManager sharedManager] addPennyPotToArray:[self.createView retrieveObjectFromForm]];
+        
+        [self.createView animateForEmptyTextFields];
+        [self.tableView reloadData];
+        [self animateCreateView];
+    }
 }
 
 #pragma mark - Alert View Delegate
@@ -267,7 +274,6 @@
     if (offset > 0) {
         [self.tableView setContentOffset:CGPointMake(0, offset) animated:YES];
     }
-    
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
@@ -281,7 +287,6 @@
 {
     if (!_overviewHeader) {
         _overviewHeader = [[PPOverviewHeaderView alloc] initWithImage:[UIImage imageNamed:@"bridge"]];
-        [_overviewHeader.addButton addTarget:self action:@selector(headerViewAddButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _overviewHeader;
 }
@@ -290,7 +295,6 @@
 {
     if (!_createView) {
         _createView = [[PPCreateObjectView alloc] initWithFrame:CGRectZero];
-        [_createView.confirmButton addTarget:self action:@selector(createViewConfirmButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _createView;
 }
