@@ -165,7 +165,7 @@ static const CGFloat kButtonHeight = 45.0f;
 
 - (IBAction)confirmButtonPressed:(id)sender
 {
-    [PPObjectCreationNotificationManager sendStateChangedNotificationWithUIChangeIntention:self.shouldDismiss];
+    [PPObjectCreationNotificationManager sendStateChangedNotificationWithObject:self andUIChangeIntention:self.shouldDismiss];
 }
 
 #pragma mark - External
@@ -181,14 +181,18 @@ static const CGFloat kButtonHeight = 45.0f;
 - (PPPennyPot *)retrieveObjectFromForm
 {
     PPPennyPot *object = [[PPPennyPot alloc] initWithTitle:self.nameTextField.text andSavingsGoal: [self valueFromTextField]];
+    
     return object;
     
 }
 
-- (void)resignResponders
+- (void)resignRespondersAndClearData
 {
     [self.nameTextField resignFirstResponder];
     [self.valueTextField resignFirstResponder];
+
+    self.nameTextField.text = @"";
+    self.valueTextField.text = @"";
 }
 
 - (void)initialResponder

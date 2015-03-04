@@ -79,12 +79,12 @@ static const CGFloat lineWidth = 1.0f;
 
 - (void)buttonWasPressed
 {
-    [PPObjectCreationNotificationManager sendStateChangedNotificationWithUIChangeIntention:YES];
+    [PPObjectCreationNotificationManager sendStateChangedNotificationWithObject:self andUIChangeIntention:YES];
 }
 
 - (void)animateToState:(NSNotification *)sender
 {
-    BOOL notificationOriginatedFromCross = [[sender object] boolValue];
+    BOOL notificationOriginatedFromCross = [PPObjectCreationNotificationManager didOriginateFromAddControl:[sender object]];
     
     if (!notificationOriginatedFromCross) {
         return;

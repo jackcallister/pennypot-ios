@@ -7,6 +7,10 @@
 //
 
 #import "PPObjectCreationNotificationManager.h"
+#import "PPAnimatingAddControl.h"
+
+static NSString * const originatedObjectKey = @"originatedObjectKey";
+static NSString * const uiStateChangeKey = @"uiStateChangeKey";
 
 static NSString * const stateChangedNotification = @"stateChangedNotification";
 
@@ -26,9 +30,30 @@ static NSString * const stateChangedNotification = @"stateChangedNotification";
 
 #pragma mark - Sending
 
-+ (void)sendStateChangedNotificationWithUIChangeIntention:(BOOL)shouldChangeUI
++ (void)sendStateChangedNotificationWithObject:(id)object andUIChangeIntention:(BOOL)shouldChangeUI
 {
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:stateChangedNotification object:[NSNumber numberWithBool:shouldChangeUI]]];
+    
+    NSDictionary *informationDictionary = @{uiStateChangeKey:[NSNumber numberWithBool:shouldChangeUI], originatedObjectKey : [NSNumber numberWithBool:[object isKindOfClass:[PPAnimatingAddControl class]]]};
+    
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:stateChangedNotification object:informationDictionary]];
+}
+
+#pragma mark - Parsing
+
++ (BOOL)didOriginateFromAddControl:(NSDictionary *)dictionary
+{
+    if (dictionary[uiStateChangeKey]) {
+        return [dictionary[uiStateChangeKey] boolValue];
+    }
+    return NO;
+}
+
++ (BOOL)doesContainUIChangeIntention:(NSDictionary *)dictionary
+{
+    if (dictionary[originatedObjectKey]) {
+        return [dictionary[originatedObjectKey] boolValue];
+    }
+    return NO;
 }
 
 @end

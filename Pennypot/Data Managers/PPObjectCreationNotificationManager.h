@@ -15,6 +15,10 @@
 
 // If this notification came from the + button on the header view,
 // pass true.
-+ (void)sendStateChangedNotificationWithUIChangeIntention:(BOOL)shouldChangeUI;
++ (void)sendStateChangedNotificationWithObject:(id)object andUIChangeIntention:(BOOL)shouldChangeUI;
+
+// Parse dictionary values
++ (BOOL)didOriginateFromAddControl:(NSDictionary *)dictionary;
++ (BOOL)doesContainUIChangeIntention:(NSDictionary *)dictionary;
 
 @end

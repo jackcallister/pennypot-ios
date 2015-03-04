@@ -149,12 +149,14 @@
 
 - (void)stateChangedNotificationReceived:(NSNotification *)sender
 {
-    BOOL originatedFromAnimatingIcon = [[sender object] boolValue];
-    
-    if (originatedFromAnimatingIcon) {
-        [self animateCreateView];
+    BOOL didOriginateFromIcon = [PPObjectCreationNotificationManager didOriginateFromAddControl:[sender object]];
 
-    } else if (self.isCreatingObject && ![self.createView shouldDismiss]) {
+    BOOL shouldChangeUIState = [PPObjectCreationNotificationManager doesContainUIChangeIntention:[sender object]];
+    
+    if (shouldChangeUIState && didOriginateFromIcon) {
+        [self animateCreateView];
+    
+    } else if (self.isCreatingObject && ![self.createView shouldDismiss] && !didOriginateFromIcon) {
         
         [self.createView animateForEmptyTextFields];
         
@@ -195,7 +197,7 @@
         pointToAnimate = self.overviewHeader.bottom + self.createView.height;
         self.tableView.scrollEnabled = NO;
     } else {
-        [self.createView resignResponders];
+        [self.createView resignRespondersAndClearData];
         pointToAnimate = self.overviewHeader.bottom;
         
         self.tableView.scrollEnabled = YES;
