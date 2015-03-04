@@ -537,7 +537,7 @@
 				INFOPLIST_FILE = Pennypot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a893b985-adc6-4f55-b69b-c2b1e351d5ab";
+				PROVISIONING_PROFILE = "cfa0aa7b-d129-45e0-88ce-b236c11e7793";
 			};
 			name = Debug;
 		};
@@ -551,7 +551,7 @@
 				INFOPLIST_FILE = Pennypot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a893b985-adc6-4f55-b69b-c2b1e351d5ab";
+				PROVISIONING_PROFILE = "cfa0aa7b-d129-45e0-88ce-b236c11e7793";
 			};
 			name = Release;
 		};
