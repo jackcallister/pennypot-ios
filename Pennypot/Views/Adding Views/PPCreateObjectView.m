@@ -9,6 +9,7 @@
 #import "PPCreateObjectView.h"
 #import <ViewUtils/ViewUtils.h>
 #import "UIColor+PennyColor.h"
+#import "PPObjectCreationNotificationManager.h"
 #import "PPPennyPot.h"
 
 @interface PPCreateObjectView () <UITextFieldDelegate>
@@ -49,6 +50,8 @@ static const CGFloat kButtonHeight = 45.0f;
         [self addSubview:self.bottomKeyline];
         [self addSubview:self.confirmButton];
 
+        
+        
         [self.nameLabel sizeToFit];
         [self.valueLabel sizeToFit];
         
@@ -158,6 +161,11 @@ static const CGFloat kButtonHeight = 45.0f;
                            (CGPoint){[view center].x + 5.0f, [view center].y}]];
     
     [[view layer] addAnimation:animation forKey:@"position"];
+}
+
+- (IBAction)confirmButtonPressed:(id)sender
+{
+    [PPObjectCreationNotificationManager sendStateChangedNotificationWithUIChangeIntention:self.shouldDismiss];
 }
 
 #pragma mark - External
@@ -272,6 +280,7 @@ static const CGFloat kButtonHeight = 45.0f;
         _confirmButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_confirmButton setTitle:@"Add" forState:UIControlStateNormal];
         [_confirmButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_confirmButton addTarget:self action:@selector(confirmButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _confirmButton;
 }

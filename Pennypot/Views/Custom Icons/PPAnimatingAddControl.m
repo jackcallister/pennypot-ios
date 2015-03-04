@@ -7,7 +7,7 @@
 //
 
 #import "PPAnimatingAddControl.h"
-
+#import "PPObjectCreationNotificationManager.h"
 #import <ViewUtils/ViewUtils.h>
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
@@ -33,8 +33,10 @@ static const CGFloat lineWidth = 1.0f;
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        [PPObjectCreationNotificationManager registerForStateChangedNotificationWithObserver:self andStateChangeSelector:@selector(animateToState:)];
         self.backgroundColor = [UIColor clearColor];
-        [self addTarget:self action:@selector(animateToState:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self addTarget:self action:@selector(buttonWasPressed) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.containingView];
         [self.containingView.layer addSublayer:self.verticalLine];
         [self.containingView.layer addSublayer:self.horizontalLine];
@@ -68,10 +70,26 @@ static const CGFloat lineWidth = 1.0f;
     self.horizontalLine.strokeColor = self.horizontalLine.fillColor = [UIColor whiteColor].CGColor;
 }
 
+- (void)dealloc
+{
+    [PPObjectCreationNotificationManager deregisterForStateChangedNotificationWithObserver:self];
+}
+
 #pragma mark - Actions
 
-- (IBAction)animateToState:(id)sender
+- (void)buttonWasPressed
 {
+    [PPObjectCreationNotificationManager sendStateChangedNotificationWithUIChangeIntention:YES];
+}
+
+- (void)animateToState:(NSNotification *)sender
+{
+    BOOL notificationOriginatedFromCross = [[sender object] boolValue];
+    
+    if (!notificationOriginatedFromCross) {
+        return;
+    }
+    
     self.isCancelling = !self.isCancelling;
 
     CGFloat radiansToRotate = DEGREES_TO_RADIANS(135);

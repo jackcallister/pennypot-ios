@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		215685B9BC109397340FC4D6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EDAB67B789C782CAFF636EA /* libPods.a */; };
+		E50CC6C71AA147B3009BA518 /* PPObjectCreationNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E50CC6C61AA147B3009BA518 /* PPObjectCreationNotificationManager.m */; };
 		E524EA2B1A2A91EE00704FF6 /* UIColor+PennyColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA2A1A2A91EE00704FF6 /* UIColor+PennyColor.m */; };
 		E524EA2F1A2AB60F00704FF6 /* PPDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA2E1A2AB60F00704FF6 /* PPDataManager.m */; };
 		E524EA321A2AD5E000704FF6 /* PPModifyPennyPotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA311A2AD5E000704FF6 /* PPModifyPennyPotViewController.m */; };
@@ -38,6 +39,8 @@
 /* Begin PBXFileReference section */
 		7D222B175C1DB61F85737BB8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8EDAB67B789C782CAFF636EA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E50CC6C51AA147B3009BA518 /* PPObjectCreationNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPObjectCreationNotificationManager.h; sourceTree = "<group>"; };
+		E50CC6C61AA147B3009BA518 /* PPObjectCreationNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPObjectCreationNotificationManager.m; sourceTree = "<group>"; };
 		E524EA291A2A91EE00704FF6 /* UIColor+PennyColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PennyColor.h"; sourceTree = "<group>"; };
 		E524EA2A1A2A91EE00704FF6 /* UIColor+PennyColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PennyColor.m"; sourceTree = "<group>"; };
 		E524EA2D1A2AB60F00704FF6 /* PPDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDataManager.h; sourceTree = "<group>"; };
@@ -112,6 +115,8 @@
 			children = (
 				E524EA2D1A2AB60F00704FF6 /* PPDataManager.h */,
 				E524EA2E1A2AB60F00704FF6 /* PPDataManager.m */,
+				E50CC6C51AA147B3009BA518 /* PPObjectCreationNotificationManager.h */,
+				E50CC6C61AA147B3009BA518 /* PPObjectCreationNotificationManager.m */,
 			);
 			path = "Data Managers";
 			sourceTree = "<group>";
@@ -406,6 +411,7 @@
 				E524EA321A2AD5E000704FF6 /* PPModifyPennyPotViewController.m in Sources */,
 				E565D5A71A1C6C5D003ADD6D /* PPOverviewTableViewCell.m in Sources */,
 				E5ECE3EE1A315AAF0001AB1A /* PPPennyPotDetailView.m in Sources */,
+				E50CC6C71AA147B3009BA518 /* PPObjectCreationNotificationManager.m in Sources */,
 				E59992EC1A1C65F3009CF98B /* PPOverviewTableViewController.m in Sources */,
 				E5BF773D1A2017C000AF4262 /* PPPennyPot.m in Sources */,
 				E59992C41A1C653D009CF98B /* main.m in Sources */,
