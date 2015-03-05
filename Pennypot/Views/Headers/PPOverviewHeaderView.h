@@ -17,6 +17,9 @@
 @property (nonatomic, strong) PPAnimatingAddControl *addButton;
 
 - (id)initWithImage:(UIImage *)image;
+- (void)layoutHeaderViewForScrollViewOffset:(CGPoint)offset;
+
+
 // Class
 + (CGFloat)headerHeight;
 
