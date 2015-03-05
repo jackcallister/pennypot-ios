@@ -32,13 +32,7 @@ static NSString * const kUserDefaultKey = @"PennyObjects";
 - (id)init
 {
     if (self = [super init]) {
-        
         self.pennyData = [self retrieveUserdefaults];
-        
-        PPPennyPot *pennyOne = [[PPPennyPot alloc] initWithTitle:@"New York" andSavingsGoal:3000];
-        pennyOne.currentProgress = 2000;
-        [self addPennyPotToArray:pennyOne];
-        
     }
     return self;
 }
