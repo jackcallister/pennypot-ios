@@ -14,6 +14,7 @@
 		E524EA321A2AD5E000704FF6 /* PPModifyPennyPotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA311A2AD5E000704FF6 /* PPModifyPennyPotViewController.m */; };
 		E565D5A41A1C6A9E003ADD6D /* PPOverviewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E565D5A31A1C6A9E003ADD6D /* PPOverviewHeaderView.m */; };
 		E565D5A71A1C6C5D003ADD6D /* PPOverviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E565D5A61A1C6C5D003ADD6D /* PPOverviewTableViewCell.m */; };
+		E56A2D0D1AA7E93300EBD97A /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = E56A2D0C1AA7E93300EBD97A /* UIImage+ImageEffects.m */; };
 		E59992C41A1C653D009CF98B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E59992C31A1C653D009CF98B /* main.m */; };
 		E59992C71A1C653D009CF98B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E59992C61A1C653D009CF98B /* AppDelegate.m */; };
 		E59992CF1A1C653D009CF98B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E59992CE1A1C653D009CF98B /* Images.xcassets */; };
@@ -51,6 +52,8 @@
 		E565D5A31A1C6A9E003ADD6D /* PPOverviewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOverviewHeaderView.m; sourceTree = "<group>"; };
 		E565D5A51A1C6C5D003ADD6D /* PPOverviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPOverviewTableViewCell.h; sourceTree = "<group>"; };
 		E565D5A61A1C6C5D003ADD6D /* PPOverviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOverviewTableViewCell.m; sourceTree = "<group>"; };
+		E56A2D0B1AA7E93300EBD97A /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		E56A2D0C1AA7E93300EBD97A /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		E59992BE1A1C653D009CF98B /* Pennypot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pennypot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E59992C21A1C653D009CF98B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E59992C31A1C653D009CF98B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -151,6 +154,15 @@
 			path = Headers;
 			sourceTree = "<group>";
 		};
+		E56A2D0A1AA7E91400EBD97A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E56A2D0B1AA7E93300EBD97A /* UIImage+ImageEffects.h */,
+				E56A2D0C1AA7E93300EBD97A /* UIImage+ImageEffects.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E59992B51A1C653D009CF98B = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +186,7 @@
 		E59992C01A1C653D009CF98B /* Pennypot */ = {
 			isa = PBXGroup;
 			children = (
+				E56A2D0A1AA7E91400EBD97A /* Extensions */,
 				E524EA2C1A2AB3D700704FF6 /* Data Managers */,
 				E565D59F1A1C6862003ADD6D /* Views */,
 				E59992E91A1C65AC009CF98B /* Models */,
@@ -407,6 +420,7 @@
 			files = (
 				E565D5A41A1C6A9E003ADD6D /* PPOverviewHeaderView.m in Sources */,
 				E59992C71A1C653D009CF98B /* AppDelegate.m in Sources */,
+				E56A2D0D1AA7E93300EBD97A /* UIImage+ImageEffects.m in Sources */,
 				E524EA2B1A2A91EE00704FF6 /* UIColor+PennyColor.m in Sources */,
 				E524EA321A2AD5E000704FF6 /* PPModifyPennyPotViewController.m in Sources */,
 				E565D5A71A1C6C5D003ADD6D /* PPOverviewTableViewCell.m in Sources */,
