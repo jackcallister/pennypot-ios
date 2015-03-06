@@ -94,7 +94,7 @@ static const CGFloat kPadding = 20.0f;
         defaultFrame.origin.y -= delta;
         defaultFrame.size.height += delta;
         
-        self.blurredImageView.alpha = (1 / kDefaultHeaderFrame.size.height * offset.y * 2) * -1;
+//        self.blurredImageView.alpha = (1 / kDefaultHeaderFrame.size.height * offset.y * 2) * -1;
 
         self.backgroundScrollView.frame = defaultFrame;
         self.clipsToBounds = NO;
