@@ -25,7 +25,9 @@
 
 + (UIColor *)increaseColor
 {
-    return [UIColor colorWithRed:0.412 green:0.482 blue:0.678 alpha:1]; /*#697bad*/
+    return [UIColor colorWithRed:0 green:0.478 blue:1 alpha:1];
+    /*#007aff*/
+//    return [UIColor colorWithRed:0.412 green:0.482 blue:0.678 alpha:1]; /*#697bad*/
 }
 
 + (UIColor *)backroundGrey
