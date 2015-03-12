@@ -13,6 +13,11 @@
 
 @interface PPModifyPennyPotViewController () <UIScrollViewDelegate>
 
+@property (nonatomic, strong) PPPennyPot *pennyObject;
+
+@property (nonatomic, strong) UILabel *currencyLabel;
+@property (nonatomic, strong) UILabel *amountLabel;
+
 @property (nonatomic, strong) UIButton *doneButton;
 @property (nonatomic, strong) UIButton *cancelButton;
 
@@ -21,18 +26,24 @@
 
 @end
 
-static const CGFloat kEdgeInsets = 15.0f;
+static const CGFloat kEdgeInsets = 25.0f;
 
 @implementation PPModifyPennyPotViewController
 
 -(id)initWithObject:(PPPennyPot *)object
 {
     if (self = [super init]) {
+        
+        self.pennyObject = object;
+        
         [self.view addSubview:self.scrollView];
         [self.scrollView insertSubview:self.backgroundImage atIndex:0];
         
         [self.view addSubview:self.doneButton];
         [self.view addSubview:self.cancelButton];
+        
+        [self.view addSubview:self.currencyLabel];
+        [self.view addSubview:self.amountLabel];
     }
     return self;
 }
@@ -63,6 +74,10 @@ static const CGFloat kEdgeInsets = 15.0f;
     
     self.cancelButton.left = kEdgeInsets;
     self.doneButton.right = self.view.boundsWidth - kEdgeInsets;
+
+    self.amountLabel.bottom = self.currencyLabel.bottom = self.view.center.y;
+    self.currencyLabel.left = kEdgeInsets;
+    self.amountLabel.left = self.currencyLabel.right + 5;
     
 }
 
@@ -76,6 +91,9 @@ static const CGFloat kEdgeInsets = 15.0f;
 
 - (IBAction)doneButtonPressed:(id)sender
 {
+    if ([self.delegate respondsToSelector:@selector(modifyViewControllerDidReturnPennyPot:)]) {
+        [self.delegate modifyViewControllerDidReturnPennyPot:self.pennyObject];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -114,6 +132,8 @@ static const CGFloat kEdgeInsets = 15.0f;
         [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
         [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_doneButton addTarget:self action:@selector(doneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _doneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+
     }
     return _doneButton;
 }
@@ -125,8 +145,34 @@ static const CGFloat kEdgeInsets = 15.0f;
         [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
         [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _cancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+
     }
     return _cancelButton;
+}
+
+- (UILabel *)currencyLabel
+{
+    if (!_currencyLabel) {
+        _currencyLabel = [UILabel new];
+        _currencyLabel.text = @"$";
+        _currencyLabel.textColor = [UIColor whiteColor];
+        _currencyLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:50];
+        [_currencyLabel sizeToFit];
+    }
+    return _currencyLabel;
+}
+
+- (UILabel *)amountLabel
+{
+    if (!_amountLabel) {
+        _amountLabel = [UILabel new];
+        _amountLabel.text = @"0";
+        _amountLabel.textColor = [UIColor whiteColor];
+        _amountLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:50];
+        [_amountLabel sizeToFit];
+    }
+    return _amountLabel;
 }
 
 @end
