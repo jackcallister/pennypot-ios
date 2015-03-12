@@ -24,6 +24,8 @@
 @property (nonatomic, strong) UIImageView *backgroundImage;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
+- (CGFloat)calculateScrollViewStartPosition;
+
 @end
 
 static const CGFloat kEdgeInsets = 25.0f;
@@ -56,7 +58,7 @@ static const CGFloat kEdgeInsets = 25.0f;
 
     self.scrollView.contentSize = CGSizeMake(self.view.boundsWidth, self.backgroundImage.height);
     
-    [self.scrollView setContentOffset:CGPointMake(0, self.scrollView.contentSize.height/2)];
+    [self.scrollView setContentOffset:CGPointMake(0, self.scrollView.contentSize.height - [self calculateScrollViewStartPosition])];
     
 }
 
@@ -79,6 +81,14 @@ static const CGFloat kEdgeInsets = 25.0f;
     self.currencyLabel.left = kEdgeInsets;
     self.amountLabel.left = self.currencyLabel.right + 5;
     
+}
+
+#pragma mark - Utilities
+
+- (CGFloat)calculateScrollViewStartPosition
+{
+    CGFloat goalPercentage = self.pennyObject.currentPercent;
+    return self.scrollView.contentSize.height * (goalPercentage/100);
 }
 
 #pragma mark - Scroll View Delegate
