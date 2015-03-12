@@ -9,27 +9,23 @@
 #import "PPModifyPennyPotViewController.h"
 #import "PPPennyPotDetailView.h"
 #import "PPPennyPot.h"
+#import <ViewUtils/ViewUtils.h>
 
-@interface PPModifyPennyPotViewController ()
+@interface PPModifyPennyPotViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) PPPennyPotDetailView *detailView;
-
-@property (nonatomic, strong) UIBarButtonItem *saveBarButton;
-@property (nonatomic, strong) UIBarButtonItem *cancelBarButton;
+@property (nonatomic, strong) UIImageView *backgroundImage;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
 
 @implementation PPModifyPennyPotViewController
 
-- (id)initWithMode:(PPModifyMode)mode
+-(id)initWithObject:(PPPennyPot *)object
 {
     if (self = [super init]) {
-        self.title = (mode == PPModifyModeAdd) ? @"New" : @"Edit";
-        
-        self.navigationItem.rightBarButtonItem = self.saveBarButton;
-        self.navigationItem.leftBarButtonItem = self.cancelBarButton;
-        
-        self.view = self.detailView = [[PPPennyPotDetailView alloc] initWithObject:nil];
+//        [self.view addSubview:self.backgroundImage];
+        [self.view addSubview:self.scrollView];
+        [self.scrollView insertSubview:self.backgroundImage atIndex:0];
     }
     return self;
 }
@@ -39,44 +35,46 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
+
+    self.scrollView.contentSize = CGSizeMake(self.view.boundsWidth, self.backgroundImage.height);
+    
+    [self.scrollView setContentOffset:CGPointMake(0, self.scrollView.contentSize.height/2)];
     
 }
 
-#pragma mark - Actions
-
-- (IBAction)saveBarButtonItemPressed:(id)sender
+- (void)viewWillLayoutSubviews
 {
-    PPPennyPot *modifiedObject = [self.detailView getObjectFromFields];
-
-    if ([self.delegate respondsToSelector:@selector(modifyViewControllerDidReturnPennyPot:)]) {
-        [self.delegate modifyViewControllerDidReturnPennyPot:modifiedObject];
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
-   
+    [super viewWillLayoutSubviews];
+    
+    self.backgroundImage.width = self.view.boundsWidth;
+    self.scrollView.frame = self.view.bounds;
 }
 
-- (IBAction)cancelBarButtonItemPressed:(id)sender
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Getters
 
-- (UIBarButtonItem *)saveBarButton
+- (UIScrollView *)scrollView
 {
-    if (!_saveBarButton) {
-        _saveBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"addEnabled"] style:UIBarButtonItemStyleDone target:self action:@selector(saveBarButtonItemPressed:)];
+    if (!_scrollView) {
+        _scrollView = [UIScrollView new];
+        _scrollView.backgroundColor = [UIColor clearColor];
+        _scrollView.delegate = self;
+        [_scrollView setShowsVerticalScrollIndicator:NO];
     }
-    return _saveBarButton;
+    return _scrollView;
 }
 
-- (UIBarButtonItem *)cancelBarButton
+- (UIImageView *)backgroundImage
 {
-    if (!_cancelBarButton) {
-        _cancelBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cross"] style:UIBarButtonItemStyleDone target:self action:@selector(cancelBarButtonItemPressed:)];
-    }
-    return _cancelBarButton;
-}
+    if (!_backgroundImage) {
+        _backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scrollGradient"]];
+        _backgroundImage.contentMode = UIViewContentModeScaleAspectFill;
 
+    }
+    return _backgroundImage;
+}
 
 @end

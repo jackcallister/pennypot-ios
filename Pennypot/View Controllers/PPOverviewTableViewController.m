@@ -111,13 +111,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithMode:PPModifyModeEdit];
-    
-    UINavigationController *modifyNavigation = [[UINavigationController alloc] initWithRootViewController:modifyController];
-    
-    [self presentViewController:modifyNavigation animated:YES completion:^{
-        
-    }];
+//    PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithObject:nil];
+//    
+//    UINavigationController *modifyNavigation = [[UINavigationController alloc] initWithRootViewController:modifyController];
+//    
+//    [self presentViewController:modifyNavigation animated:YES completion:^{
+//        
+//    }];
 }
 
 #pragma mark - Custom Cell Delegate
@@ -136,10 +136,8 @@
         
     } else {
         
-        PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithMode:PPModifyModeEdit];
-        UINavigationController *modifyNavigation = [[UINavigationController alloc] initWithRootViewController:modifyController];
-        
-        [self presentViewController:modifyNavigation animated:YES completion:^{
+        PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithObject:pennyToEdit];
+        [self presentViewController:modifyController animated:YES completion:^{
             [cell swipeToOriginWithCompletion:nil];
         }];
     }

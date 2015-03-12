@@ -9,11 +9,6 @@
 #import <UIKit/UIKit.h>
 @class PPPennyPot;
 
-typedef NS_ENUM(NSInteger, PPModifyMode) {
-    PPModifyModeAdd,
-    PPModifyModeEdit
-};
-
 @protocol PPModifyPennyPotViewControllerDelegate <NSObject>
 
 - (void)modifyViewControllerDidReturnPennyPot:(PPPennyPot *)pennyPot;
@@ -24,6 +19,6 @@ typedef NS_ENUM(NSInteger, PPModifyMode) {
 
 @property (nonatomic, weak) id <PPModifyPennyPotViewControllerDelegate>delegate;
 
-- (id)initWithMode:(PPModifyMode)mode;
+- (id)initWithObject:(PPPennyPot *)object;
 
 @end
