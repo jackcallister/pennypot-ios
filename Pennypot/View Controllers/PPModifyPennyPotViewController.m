@@ -13,19 +13,26 @@
 
 @interface PPModifyPennyPotViewController () <UIScrollViewDelegate>
 
+@property (nonatomic, strong) UIButton *doneButton;
+@property (nonatomic, strong) UIButton *cancelButton;
+
 @property (nonatomic, strong) UIImageView *backgroundImage;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
+
+static const CGFloat kEdgeInsets = 15.0f;
 
 @implementation PPModifyPennyPotViewController
 
 -(id)initWithObject:(PPPennyPot *)object
 {
     if (self = [super init]) {
-//        [self.view addSubview:self.backgroundImage];
         [self.view addSubview:self.scrollView];
         [self.scrollView insertSubview:self.backgroundImage atIndex:0];
+        
+        [self.view addSubview:self.doneButton];
+        [self.view addSubview:self.cancelButton];
     }
     return self;
 }
@@ -48,10 +55,33 @@
     
     self.backgroundImage.width = self.view.boundsWidth;
     self.scrollView.frame = self.view.bounds;
+    
+    self.doneButton.height = self.cancelButton.height = 60.0f;
+    self.doneButton.width = self.cancelButton.width = 80.0f;
+    
+    self.doneButton.bottom = self.cancelButton.bottom = self.view.boundsHeight - 10;
+    
+    self.cancelButton.left = kEdgeInsets;
+    self.doneButton.right = self.view.boundsWidth - kEdgeInsets;
+    
 }
+
+#pragma mark - Scroll View Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+}
+
+#pragma mark - Actions
+
+- (IBAction)doneButtonPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)cancelButtonPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Getters
@@ -75,6 +105,28 @@
 
     }
     return _backgroundImage;
+}
+
+- (UIButton *)doneButton
+{
+    if (!_doneButton) {
+        _doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_doneButton setTitle:@"Done" forState:UIControlStateNormal];
+        [_doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_doneButton addTarget:self action:@selector(doneButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _doneButton;
+}
+
+- (UIButton *)cancelButton
+{
+    if (!_cancelButton) {
+        _cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+        [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _cancelButton;
 }
 
 @end
