@@ -37,7 +37,7 @@ static const CGFloat kEdgeInsets = 25.0f;
     if (self = [super init]) {
         
         self.pennyObject = object;
-
+        self.pennyObject.currentProgress = 600;
         [self.view addSubview:self.scrollView];
         [self.scrollView insertSubview:self.backgroundImage atIndex:0];
         
@@ -86,13 +86,7 @@ static const CGFloat kEdgeInsets = 25.0f;
     
 }
 
-#pragma mark - Utilities
 
-- (CGFloat)calculateScrollViewStartPosition
-{
-    CGFloat goalPercentage = self.pennyObject.currentPercent;
-    return self.scrollView.contentSize.height * (goalPercentage/100);
-}
 
 #pragma mark - Scroll View Delegate
 
@@ -100,6 +94,8 @@ static const CGFloat kEdgeInsets = 25.0f;
 {
     [self calculateAmountLabelWithScrollView:scrollView];
 }
+
+#pragma mark - Value calculations
 
 - (void)calculateAmountLabelWithScrollView:(UIScrollView *)scrollView
 {
@@ -121,6 +117,12 @@ static const CGFloat kEdgeInsets = 25.0f;
     }
     
     self.amountLabel.text = [NSString stringWithFormat:@"%@", @(value)];
+}
+
+- (CGFloat)calculateScrollViewStartPosition
+{
+    CGFloat goalPercentage = self.pennyObject.currentPercent;
+    return (self.scrollView.contentSize.height - self.view.boundsHeight) * (goalPercentage/100);
 }
 
 
