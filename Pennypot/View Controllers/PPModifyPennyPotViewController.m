@@ -25,7 +25,7 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 - (CGFloat)calculateScrollViewStartPosition;
-
+- (void)calculateAmountLabelWithScrollView:(UIScrollView *)scrollView;
 @end
 
 static const CGFloat kEdgeInsets = 25.0f;
@@ -37,7 +37,7 @@ static const CGFloat kEdgeInsets = 25.0f;
     if (self = [super init]) {
         
         self.pennyObject = object;
-        
+
         [self.view addSubview:self.scrollView];
         [self.scrollView insertSubview:self.backgroundImage atIndex:0];
         
@@ -60,6 +60,8 @@ static const CGFloat kEdgeInsets = 25.0f;
     
     [self.scrollView setContentOffset:CGPointMake(0, self.scrollView.contentSize.height - [self calculateScrollViewStartPosition])];
     
+    [self calculateAmountLabelWithScrollView:self.scrollView];
+    
 }
 
 - (void)viewWillLayoutSubviews
@@ -80,6 +82,7 @@ static const CGFloat kEdgeInsets = 25.0f;
     self.amountLabel.bottom = self.currencyLabel.bottom = self.view.center.y;
     self.currencyLabel.left = kEdgeInsets;
     self.amountLabel.left = self.currencyLabel.right + 5;
+    self.amountLabel.width = self.view.boundsWidth - (kEdgeInsets) - self.amountLabel.left;
     
 }
 
@@ -95,14 +98,31 @@ static const CGFloat kEdgeInsets = 25.0f;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    [self calculateAmountLabelWithScrollView:scrollView];
+}
+
+- (void)calculateAmountLabelWithScrollView:(UIScrollView *)scrollView
+{
     CGFloat maxHeight = scrollView.contentSize.height - self.view.boundsHeight;
     CGFloat calculatedOffsetDiff = (scrollView.contentOffset.y + scrollView.frame.size.height) - self.view.boundsHeight;
-
+    CGFloat value = self.pennyObject.currentProgress;
+    
+    
     if (self.pennyObject) {
-       NSLog(@"%@", @(maxHeight / self.pennyObject.savingsGoal));
-        NSLog(@"DIFF %@", @((maxHeight - calculatedOffsetDiff)));
+        
+        if (scrollView.contentOffset.y <= 0) {
+            value = self.pennyObject.savingsGoal;
+        } else if (scrollView.contentOffset.y >= maxHeight) {
+            value = 0.0f;
+        } else {
+            CGFloat differenceRatio = (maxHeight / self.pennyObject.savingsGoal);
+            value = roundf((maxHeight - calculatedOffsetDiff)/ differenceRatio);
+        }
     }
+    
+    self.amountLabel.text = [NSString stringWithFormat:@"%@", @(value)];
 }
+
 
 #pragma mark - Actions
 
