@@ -49,8 +49,8 @@ static NSString * const kUserDefaultKey = @"PennyObjects";
     NSMutableArray *addArray = [NSMutableArray arrayWithArray:self.pennyData];
     
     [addArray insertObject:pennyPot atIndex:0];
+    self.pennyData = addArray;
     
-    self.pennyData = [NSArray arrayWithArray:addArray];
     [self saveToUserDefaults];
 }
 
@@ -83,7 +83,11 @@ static NSString * const kUserDefaultKey = @"PennyObjects";
     NSArray *rawObjectArray = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultKey]];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    return rawObjectArray;
+    if (rawObjectArray) {
+        return rawObjectArray;
+    } else {
+        return [NSArray new];
+    }
 }
 
 @end

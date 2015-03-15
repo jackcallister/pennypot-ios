@@ -19,6 +19,6 @@
 
 @property (nonatomic, weak) id <PPModifyPennyPotViewControllerDelegate>delegate;
 
-- (id)initWithObject:(PPPennyPot *)object;
+- (instancetype)initWithObject:(PPPennyPot *)object;
 
 @end

@@ -17,7 +17,7 @@
 
 #import <ViewUtils/ViewUtils.h>
 
-@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, UIAlertViewDelegate>
+@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, UIAlertViewDelegate, PPModifyPennyPotViewControllerDelegate>
 
 @property (nonatomic) BOOL isCreatingObject;
 
@@ -137,6 +137,7 @@
     } else {
         
         PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithObject:pennyToEdit];
+        modifyController.delegate = self;
         [self presentViewController:modifyController animated:YES completion:^{
             [cell swipeToOriginWithCompletion:nil];
         }];
@@ -184,6 +185,13 @@
     if (scrollView == self.tableView) {
         [(PPOverviewHeaderView *)self.tableView.tableHeaderView layoutHeaderViewForScrollViewOffset:scrollView.contentOffset];
     }
+}
+
+#pragma mark - Modify View Controller Delegate
+
+- (void)modifyViewControllerDidReturnPennyPot:(PPPennyPot *)pennyPot
+{
+//    [[PPDataManager sharedManager] insert]
 }
 
 #pragma mark - Alert View Delegate

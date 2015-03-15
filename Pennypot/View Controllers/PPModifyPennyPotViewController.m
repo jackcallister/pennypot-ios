@@ -32,7 +32,7 @@ static const CGFloat kEdgeInsets = 25.0f;
 
 @implementation PPModifyPennyPotViewController
 
--(id)initWithObject:(PPPennyPot *)object
+- (instancetype)initWithObject:(PPPennyPot *)object
 {
     if (self = [super init]) {
         
@@ -95,6 +95,13 @@ static const CGFloat kEdgeInsets = 25.0f;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    CGFloat maxHeight = scrollView.contentSize.height - self.view.boundsHeight;
+    CGFloat calculatedOffsetDiff = (scrollView.contentOffset.y + scrollView.frame.size.height) - self.view.boundsHeight;
+
+    if (self.pennyObject) {
+       NSLog(@"%@", @(maxHeight / self.pennyObject.savingsGoal));
+        NSLog(@"DIFF %@", @((maxHeight - calculatedOffsetDiff)));
+    }
 }
 
 #pragma mark - Actions
