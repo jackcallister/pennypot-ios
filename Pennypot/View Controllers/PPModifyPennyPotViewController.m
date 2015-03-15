@@ -37,7 +37,7 @@ static const CGFloat kEdgeInsets = 25.0f;
     if (self = [super init]) {
         
         self.pennyObject = object;
-        self.pennyObject.currentProgress = 600;
+
         [self.view addSubview:self.scrollView];
         [self.scrollView insertSubview:self.backgroundImage atIndex:0];
         
