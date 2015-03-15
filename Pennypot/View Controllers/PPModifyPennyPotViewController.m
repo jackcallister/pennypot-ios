@@ -121,6 +121,7 @@ static const CGFloat kEdgeInsets = 25.0f;
 
 - (CGFloat)calculateScrollViewStartPosition
 {
+    // TODO ---- Fix
     CGFloat goalPercentage = self.pennyObject.currentPercent;
     return (self.scrollView.contentSize.height - self.view.boundsHeight) * (goalPercentage/100);
 }
@@ -131,6 +132,7 @@ static const CGFloat kEdgeInsets = 25.0f;
 - (IBAction)doneButtonPressed:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(modifyViewControllerDidReturnPennyPot:)]) {
+        self.pennyObject.currentProgress = [self.amountLabel.text floatValue];
         [self.delegate modifyViewControllerDidReturnPennyPot:self.pennyObject];
     }
     [self dismissViewControllerAnimated:YES completion:nil];

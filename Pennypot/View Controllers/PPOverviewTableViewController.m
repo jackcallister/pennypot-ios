@@ -111,13 +111,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithObject:nil];
-//    
-//    UINavigationController *modifyNavigation = [[UINavigationController alloc] initWithRootViewController:modifyController];
-//    
-//    [self presentViewController:modifyNavigation animated:YES completion:^{
-//        
-//    }];
 }
 
 #pragma mark - Custom Cell Delegate
@@ -191,7 +184,8 @@
 
 - (void)modifyViewControllerDidReturnPennyPot:(PPPennyPot *)pennyPot
 {
-//    [[PPDataManager sharedManager] insert]
+    // TODO ---- Make sure it saves
+    [self.tableView reloadData];
 }
 
 #pragma mark - Alert View Delegate
