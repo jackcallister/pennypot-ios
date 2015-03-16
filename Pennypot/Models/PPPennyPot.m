@@ -94,7 +94,6 @@
     }
     
     CGFloat currentPercent = ((CGFloat)self.currentProgress / (CGFloat)self.savingsGoal) * 100.0f;
-    
     return currentPercent;
 }
 
