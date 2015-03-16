@@ -59,8 +59,7 @@ static const CGFloat kEdgeInsets = 25.0f;
     self.scrollView.contentSize = CGSizeMake(self.view.boundsWidth, self.backgroundImage.height);
     
     [self calculateAmountLabelWithScrollView:self.scrollView];
-    
-    [self.scrollView setContentOffset:CGPointMake(0, self.scrollView.contentSize.height - [self calculateScrollViewStartPosition])];
+
 }
 
 - (void)viewWillLayoutSubviews
@@ -82,6 +81,9 @@ static const CGFloat kEdgeInsets = 25.0f;
     self.currencyLabel.left = kEdgeInsets;
     self.amountLabel.left = self.currencyLabel.right + 5;
     self.amountLabel.width = self.view.boundsWidth - (kEdgeInsets) - self.amountLabel.left;
+    
+    [self.scrollView setContentOffset:CGPointMake(0, (self.scrollView.contentSize.height - self.view.boundsHeight) - [self calculateScrollViewStartPosition])];
+    
 }
 
 
