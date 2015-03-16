@@ -22,4 +22,6 @@
 
 - (PPPennyPot *)pennyPotAtPosition:(NSInteger)position;
 
+- (void)updateObjects;
+
 @end

@@ -184,7 +184,7 @@
 
 - (void)modifyViewControllerDidReturnPennyPot:(PPPennyPot *)pennyPot
 {
-    // TODO ---- Make sure it saves
+    [[PPDataManager sharedManager] updateObjects];
     [self.tableView reloadData];
 }
 

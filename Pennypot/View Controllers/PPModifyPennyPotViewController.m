@@ -58,10 +58,7 @@ static const CGFloat kEdgeInsets = 25.0f;
 
     self.scrollView.contentSize = CGSizeMake(self.view.boundsWidth, self.backgroundImage.height);
     
-    [self.scrollView setContentOffset:CGPointMake(0, self.scrollView.contentSize.height - [self calculateScrollViewStartPosition])];
-    
     [self calculateAmountLabelWithScrollView:self.scrollView];
-    
 }
 
 - (void)viewWillLayoutSubviews
@@ -84,6 +81,7 @@ static const CGFloat kEdgeInsets = 25.0f;
     self.amountLabel.left = self.currencyLabel.right + 5;
     self.amountLabel.width = self.view.boundsWidth - (kEdgeInsets) - self.amountLabel.left;
     
+    [self.scrollView setContentOffset:CGPointMake(0, [self calculateScrollViewStartPosition])];
 }
 
 
@@ -123,7 +121,9 @@ static const CGFloat kEdgeInsets = 25.0f;
 {
     // TODO ---- Fix
     CGFloat goalPercentage = self.pennyObject.currentPercent;
-    return (self.scrollView.contentSize.height - self.view.boundsHeight) * (goalPercentage/100);
+    CGFloat maxHeight = self.scrollView.contentSize.height - self.view.boundsHeight;
+    
+    return (maxHeight * (goalPercentage/100));
 }
 
 

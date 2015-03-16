@@ -69,6 +69,11 @@ static NSString * const kUserDefaultKey = @"PennyObjects";
     return self.pennyData[position];
 }
 
+- (void)updateObjects
+{
+    [self saveToUserDefaults];
+}
+
 #pragma mark - User Defaults
 
 - (void)saveToUserDefaults
