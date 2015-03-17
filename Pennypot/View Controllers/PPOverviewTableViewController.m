@@ -14,10 +14,11 @@
 #import "PPCreateObjectView.h"
 #import "PPAnimatingAddControl.h"
 #import "PPObjectCreationNotificationManager.h"
+#import "PPAnimator.h"
 
 #import <ViewUtils/ViewUtils.h>
 
-@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, UIAlertViewDelegate, PPModifyPennyPotViewControllerDelegate>
+@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, UIAlertViewDelegate, PPModifyPennyPotViewControllerDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic) BOOL isCreatingObject;
 
@@ -107,12 +108,6 @@
     return cell;
 }
 
-#pragma mark - Table View Delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
-
 #pragma mark - Custom Cell Delegate
 
 - (void)overviewTableViewCell:(PPOverviewTableViewCell *)cell didSwipeWithCellMode:(PPOverviewCellSwipeMode)mode
@@ -131,6 +126,7 @@
         
         PPModifyPennyPotViewController *modifyController = [[PPModifyPennyPotViewController alloc] initWithObject:pennyToEdit];
         modifyController.delegate = self;
+        modifyController.transitioningDelegate = self;
         [self presentViewController:modifyController animated:YES completion:^{
             [cell swipeToOriginWithCompletion:nil];
         }];
@@ -327,6 +323,16 @@
         _transparentBackgroundView.alpha = 0.0f;
     }
     return _transparentBackgroundView;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    return [[PPAnimator alloc] initWithPresentationType:PPAnimatorPresentationTypePresent];
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [[PPAnimator alloc] initWithPresentationType:PPAnimatorPresentationTypeDismiss];
 }
 
 @end

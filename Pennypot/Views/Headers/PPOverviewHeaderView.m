@@ -55,7 +55,7 @@ static const CGFloat kPadding = 20.0f;
 {
     [super layoutSubviews];
     
-    // Layout once. The rest of the time or scroll view
+    // Layout once. The rest of the time scroll view
     // will take care of it.
     if (CGRectIsEmpty(self.backgroundScrollView.frame)) {
         self.backgroundScrollView.frame = self.bounds;
@@ -94,8 +94,6 @@ static const CGFloat kPadding = 20.0f;
         defaultFrame.origin.y -= delta;
         defaultFrame.size.height += delta;
         
-//        self.blurredImageView.alpha = (1 / kDefaultHeaderFrame.size.height * offset.y * 2) * -1;
-
         self.backgroundScrollView.frame = defaultFrame;
         self.clipsToBounds = NO;
         
