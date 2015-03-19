@@ -31,6 +31,7 @@
 @end
 
 static const CGFloat kEdgeInsets = 25.0f;
+static const CGFloat kButtonBottom = 10.0f;
 
 @implementation PPModifyPennyPotViewController
 
@@ -75,7 +76,7 @@ static const CGFloat kEdgeInsets = 25.0f;
     self.doneButton.height = self.cancelButton.height = 60.0f;
     self.doneButton.width = self.cancelButton.width = 80.0f;
     
-    self.doneButton.bottom = self.cancelButton.bottom = self.view.boundsHeight - 10;
+    self.doneButton.bottom = self.cancelButton.bottom = self.view.boundsHeight - kButtonBottom;
     
     self.cancelButton.left = kEdgeInsets;
     self.doneButton.right = self.view.boundsWidth - kEdgeInsets;
@@ -95,9 +96,25 @@ static const CGFloat kEdgeInsets = 25.0f;
 #pragma mark - Scroll View Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+{    
     [self calculateAmountLabelWithScrollView:scrollView];
+
+    //Let's make sure that the UI elements move when we hit the top and bottom of the scrollview
+    // If scrollview is at the bottom.
+    if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
+        
+        CGFloat bottomOffset = scrollView.contentSize.height - scrollView.contentOffset.y;
+        self.doneButton.bottom = self.cancelButton.bottom = bottomOffset- kButtonBottom;
+        self.currencyLabel.bottom = self.amountLabel.bottom = bottomOffset - self.view.center.y;
+        
+    } else if (scrollView.contentOffset.y < 0) { // Scrollview is at the top
+
+        self.currencyLabel.bottom = self.amountLabel.bottom = self.view.center.y - scrollView.contentOffset.y;
+        self.doneButton.bottom = self.cancelButton.bottom = (self.view.boundsHeight - kButtonBottom) - scrollView.contentOffset.y;
+        
+    }
 }
+
 
 #pragma mark - Value calculations
 
