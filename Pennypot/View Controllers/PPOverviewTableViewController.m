@@ -327,12 +327,12 @@
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {
-    return [[PPAnimator alloc] initWithPresentationType:PPAnimatorPresentationTypePresent];
+    return [[PPAnimator alloc] initWithPresentationType:PPAnimatorPresentationPresent];
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    return [[PPAnimator alloc] initWithPresentationType:PPAnimatorPresentationTypeDismiss];
+    return [[PPAnimator alloc] initWithPresentationType:PPAnimatorPresentationDismiss];
 }
 
 @end

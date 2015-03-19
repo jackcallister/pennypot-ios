@@ -24,6 +24,8 @@
 @property (nonatomic, strong) UIImageView *backgroundImage;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
+@property (nonatomic, strong) UIImageView *backingImageView;
+
 - (CGFloat)calculateScrollViewStartPosition;
 - (void)calculateAmountLabelWithScrollView:(UIScrollView *)scrollView;
 @end
@@ -37,6 +39,8 @@ static const CGFloat kEdgeInsets = 25.0f;
     if (self = [super init]) {
         
         self.pennyObject = object;
+        
+        [self.view addSubview:self.backingImageView];
 
         [self.view addSubview:self.scrollView];
         [self.scrollView insertSubview:self.backgroundImage atIndex:0];
@@ -54,8 +58,7 @@ static const CGFloat kEdgeInsets = 25.0f;
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
-
+    self.scrollView.backgroundColor = [UIColor clearColor];
     self.scrollView.contentSize = CGSizeMake(self.view.boundsWidth, self.backgroundImage.height);
     
     [self calculateAmountLabelWithScrollView:self.scrollView];
@@ -84,6 +87,7 @@ static const CGFloat kEdgeInsets = 25.0f;
     
     [self.scrollView setContentOffset:CGPointMake(0, (self.scrollView.contentSize.height - self.view.boundsHeight) - [self calculateScrollViewStartPosition])];
     
+    self.backingImageView.frame = self.view.bounds;
 }
 
 
@@ -215,6 +219,22 @@ static const CGFloat kEdgeInsets = 25.0f;
         [_amountLabel sizeToFit];
     }
     return _amountLabel;
+}
+
+- (UIImageView *)backingImageView
+{
+    if (!_backingImageView) {
+        _backingImageView = [UIImageView new];
+    }
+    return _backingImageView;
+}
+
+#pragma mark - Setter
+
+- (void)setBackingImage:(UIImage *)backingImage
+{
+    _backingImage = backingImage;
+    self.backingImageView.image = _backingImage;
 }
 
 @end

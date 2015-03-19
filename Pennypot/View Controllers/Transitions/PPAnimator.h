@@ -10,12 +10,12 @@
 
 // Need better names :(
 typedef enum {
-    PPAnimatorPresentationTypePresent,
-    PPAnimatorPresentationTypeDismiss
-} PPAnimatorPresentationType;
+    PPAnimatorPresentationPresent,
+    PPAnimatorPresentationDismiss
+} PPAnimatorPresentation;
 
 @interface PPAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
-- (id)initWithPresentationType:(PPAnimatorPresentationType)presentationType;
+- (id)initWithPresentationType:(PPAnimatorPresentation)presentationType;
 
 @end

@@ -19,6 +19,8 @@
 
 @property (nonatomic, weak) id <PPModifyPennyPotViewControllerDelegate>delegate;
 
+@property (nonatomic, strong) UIImage *backingImage;
+
 - (instancetype)initWithObject:(PPPennyPot *)object;
 
 @end
