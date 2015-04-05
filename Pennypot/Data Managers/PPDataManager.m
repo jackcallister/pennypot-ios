@@ -19,7 +19,7 @@ static NSString * const kUserDefaultKey = @"PennyObjects";
 
 @implementation PPDataManager
 
-+ (id)sharedManager
++ (instancetype)sharedManager
 {
     static PPDataManager *sharedManager = nil;
     static dispatch_once_t onceToken;
@@ -29,7 +29,7 @@ static NSString * const kUserDefaultKey = @"PennyObjects";
     return sharedManager;
 }
 
-- (id)init
+- (instancetype)init
 {
     if (self = [super init]) {
         self.pennyData = [self retrieveUserdefaults];

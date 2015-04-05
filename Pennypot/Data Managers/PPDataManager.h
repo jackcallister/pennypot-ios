@@ -12,7 +12,7 @@
 
 @interface PPDataManager : NSObject
 
-+ (id)sharedManager;
++ (instancetype)sharedManager;
 
 - (NSInteger)numberOfPennyObjects;
 

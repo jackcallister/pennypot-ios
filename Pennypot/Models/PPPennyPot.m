@@ -21,7 +21,7 @@
 
 @implementation PPPennyPot
 
-- (id)initWithTitle:(NSString *)title andSavingsGoal:(NSInteger)savingsGoal
+- (instancetype)initWithTitle:(NSString *)title andSavingsGoal:(NSInteger)savingsGoal
 {
     self = [super init];
     if (self) {
@@ -46,7 +46,7 @@
     [encoder encodeObject:self.timestamp forKey:@"timestamp"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (instancetype)initWithCoder:(NSCoder *)decoder
 {
     if((self = [super init])) {
         self.title = [decoder decodeObjectForKey:@"title"];

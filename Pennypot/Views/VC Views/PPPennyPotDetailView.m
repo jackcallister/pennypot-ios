@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, PPDetailViewMode) {
 
 @implementation PPPennyPotDetailView
 
-- (id)initWithObject:(PPPennyPot *)object
+- (instancetype)initWithObject:(PPPennyPot *)object
 {
     if (self = [super init]) {
         

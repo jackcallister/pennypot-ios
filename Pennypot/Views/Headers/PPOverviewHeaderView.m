@@ -33,7 +33,7 @@ static const CGFloat kPadding = 20.0f;
 
 @implementation PPOverviewHeaderView
 
-- (id)initWithImage:(UIImage *)image
+- (instancetype)initWithImage:(UIImage *)image
 {
     self = [super init];
     if (self) {

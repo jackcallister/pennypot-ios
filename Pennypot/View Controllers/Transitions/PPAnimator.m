@@ -21,7 +21,7 @@ static const CGFloat bottomViewOffset = 30.0f;
 
 @implementation PPAnimator
 
-- (id)initWithPresentationType:(PPAnimatorPresentation)presentationType
+- (instancetype)initWithPresentationType:(PPAnimatorPresentation)presentationType
 {
     if (self = [super init]) {
         self.presentationType = presentationType;

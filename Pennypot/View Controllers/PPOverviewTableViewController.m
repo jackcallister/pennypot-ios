@@ -17,10 +17,13 @@
 #import "PPAnimator.h"
 
 #import <ViewUtils/ViewUtils.h>
+#import <MNMaterialButton/MNMaterialButton.h>
 
 @interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, UIAlertViewDelegate, PPModifyPennyPotViewControllerDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic) BOOL isCreatingObject;
+
+@property (nonatomic, strong) MNMaterialButton *createButton;
 
 @property (nonatomic, strong) PPOverviewTableViewCell *modifiyingCell;
 @property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
@@ -34,7 +37,7 @@
 
 @implementation PPOverviewTableViewController
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
@@ -49,6 +52,7 @@
     [self.tableView registerClass:PPOverviewTableViewCell.class forCellReuseIdentifier: [PPOverviewTableViewCell reuseIdentifier]];
     
     [self.view addSubview:self.createView];
+    [self.view addSubview:self.createButton];
     
     self.overviewHeader.height = [PPOverviewHeaderView headerHeight];
     
@@ -70,6 +74,10 @@
     self.transparentBackgroundView.height = self.view.boundsHeight - self.overviewHeader.bottom;
     self.transparentBackgroundView.width = self.view.boundsWidth;
     self.transparentBackgroundView.bottom = self.view.boundsHeight;
+    
+    self.createButton.height = self.createButton.width = 50.0f;
+    self.createButton.bottom = self.view.boundsHeight - 20.0f;
+    self.createButton.right = self.view.boundsWidth - 20.0f;
 }
 
 - (void)dealloc
@@ -134,6 +142,11 @@
 }
 
 #pragma mark - Add Button Actions
+
+- (IBAction)createButtonPressed:(id)sender
+{
+    NSLog(@"Pressed");
+}
 
 - (void)stateChangedNotificationReceived:(NSNotification *)sender
 {
@@ -299,6 +312,15 @@
 
 #pragma mark - Getters
 
+- (MNMaterialButton *)createButton
+{
+    if (!_createButton) {
+        _createButton = [[MNMaterialButton alloc] initWithFrame:CGRectZero];
+        [_createButton addTarget:self action:@selector(createButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _createButton;
+}
+
 - (PPOverviewHeaderView *)overviewHeader
 {
     if (!_overviewHeader) {
@@ -324,6 +346,8 @@
     }
     return _transparentBackgroundView;
 }
+
+#pragma mark - View Controller Transition
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {

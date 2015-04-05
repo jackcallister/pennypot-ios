@@ -11,7 +11,7 @@
 
 @interface PPPennyPotDetailView : UIView
 
-- (id)initWithObject:(PPPennyPot *)object;
+- (instancetype)initWithObject:(PPPennyPot *)object;
 
 - (PPPennyPot *)getObjectFromFields;
 
