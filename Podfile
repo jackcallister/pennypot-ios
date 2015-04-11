@@ -5,8 +5,9 @@ inhibit_all_warnings!
 
 xcodeproj 'Pennypot.xcodeproj'
 
-#Development
-pod 'MNMaterialButton', :path => '~/Documents/Personal/MNMaterialButton'
-
 pod 'MCSwipeTableViewCell', '~> 2.1'
 pod 'ViewUtils', '~> 1.1'
+
+#Development
+#pod 'MNFloatingActionButton', :path => '~/Documents/Personal/MNFloatingActionButton/'
+pod 'MNFloatingActionButton', '~> 0.1'

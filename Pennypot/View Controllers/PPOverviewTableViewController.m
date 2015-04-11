@@ -17,13 +17,13 @@
 #import "PPAnimator.h"
 
 #import <ViewUtils/ViewUtils.h>
-#import <MNMaterialButton/MNMaterialButton.h>
+#import <MNFloatingActionButton/MNFloatingActionButton.h>
 
 @interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, UIAlertViewDelegate, PPModifyPennyPotViewControllerDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic) BOOL isCreatingObject;
 
-@property (nonatomic, strong) MNMaterialButton *createButton;
+@property (nonatomic, strong) MNFloatingActionButton *createButton;
 
 @property (nonatomic, strong) PPOverviewTableViewCell *modifiyingCell;
 @property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
@@ -312,10 +312,10 @@
 
 #pragma mark - Getters
 
-- (MNMaterialButton *)createButton
+- (MNFloatingActionButton *)createButton
 {
     if (!_createButton) {
-        _createButton = [[MNMaterialButton alloc] initWithFrame:CGRectZero];
+        _createButton = [[MNFloatingActionButton alloc] initWithFrame:CGRectZero];
         [_createButton addTarget:self action:@selector(createButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _createButton;
