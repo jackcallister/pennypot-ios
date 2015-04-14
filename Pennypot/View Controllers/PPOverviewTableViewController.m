@@ -12,9 +12,8 @@
 #import "PPDataManager.h"
 #import "PPModifyPennyPotViewController.h"
 #import "PPCreateObjectView.h"
-#import "PPAnimatingAddControl.h"
-#import "PPObjectCreationNotificationManager.h"
 #import "PPAnimator.h"
+#import "PPCreateViewController.h"
 
 #import <ViewUtils/ViewUtils.h>
 #import <MNFloatingActionButton/MNFloatingActionButton.h>
@@ -41,7 +40,7 @@
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        [PPObjectCreationNotificationManager registerForStateChangedNotificationWithObserver:self andStateChangeSelector:@selector(stateChangedNotificationReceived:)];
+
     }
     return self;
 }
@@ -82,8 +81,6 @@
 
 - (void)dealloc
 {
-    [PPObjectCreationNotificationManager deregisterForStateChangedNotificationWithObserver:self];
-    
     [self deregisterForKeyboardNotifications];
 }
 
@@ -145,32 +142,10 @@
 
 - (IBAction)createButtonPressed:(id)sender
 {
-    NSLog(@"Pressed");
-}
-
-- (void)stateChangedNotificationReceived:(NSNotification *)sender
-{
-    BOOL didOriginateFromIcon = [PPObjectCreationNotificationManager didOriginateFromAddControl:[sender object]];
-    BOOL shouldChangeUIState = [PPObjectCreationNotificationManager doesContainUIChangeIntention:[sender object]];
-    
-    // This is from Cross Icon
-    if (shouldChangeUIState && didOriginateFromIcon) {
-        [self animateCreateView];
-    
-    // This is an empty create view! So let's shake the labels
-    } else if (self.isCreatingObject && ![self.createView shouldDismiss] && !didOriginateFromIcon) {
-        
-        [self.createView animateForEmptyTextFields];
-        
-    // Let's actually create this object. Yeeeha.
-    } else {
-        
-        [[PPDataManager sharedManager] addPennyPotToArray:[self.createView retrieveObjectFromForm]];
-        
-        [self.createView animateForEmptyTextFields];
-        [self.tableView reloadData];
-        [self animateCreateView];
-    }
+    PPCreateViewController *viewController = [PPCreateViewController new];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+//    viewController.transitioningDelegate = self;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Scroll View Delegate

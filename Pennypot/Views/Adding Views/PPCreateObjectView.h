@@ -12,8 +12,6 @@
 
 @interface PPCreateObjectView : UIView
 
-@property (nonatomic, strong) UIButton *confirmButton;
-
 - (void)animateForEmptyTextFields;
 
 - (BOOL)shouldDismiss;
