@@ -164,12 +164,16 @@ static const CGFloat kTextPadding = 5.0f;
     return NO;
 }
 
-- (PPPennyPot *)retrieveObjectFromForm
+- (PPPennyPot *)retrieveObjectFromFormAnimateError
 {
-    PPPennyPot *object = [[PPPennyPot alloc] initWithTitle:self.nameTextField.text andSavingsGoal: [self valueFromTextField]];
-    
-    return object;
-    
+    if (self.shouldDismiss) {
+        PPPennyPot *object = [[PPPennyPot alloc] initWithTitle:self.nameTextField.text andSavingsGoal: [self valueFromTextField]];
+        
+        return object;
+    } else {
+        [self animateForEmptyTextFields];
+        return nil;
+    }
 }
 
 - (void)resignRespondersAndClearData

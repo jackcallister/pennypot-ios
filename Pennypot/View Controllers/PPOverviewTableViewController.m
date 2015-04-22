@@ -47,6 +47,7 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
 
     [self.tableView registerClass:PPOverviewTableViewCell.class forCellReuseIdentifier: [PPOverviewTableViewCell reuseIdentifier]];
     
@@ -74,7 +75,7 @@
     self.transparentBackgroundView.width = self.view.boundsWidth;
     self.transparentBackgroundView.bottom = self.view.boundsHeight;
     
-    self.createButton.height = self.createButton.width = 50.0f;
+    self.createButton.height = self.createButton.width = 60.0f;
     self.createButton.bottom = self.view.boundsHeight - 20.0f;
     self.createButton.right = self.view.boundsWidth - 20.0f;
 }
@@ -144,7 +145,7 @@
 {
     PPCreateViewController *viewController = [PPCreateViewController new];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-//    viewController.transitioningDelegate = self;
+    navigationController.transitioningDelegate = self;
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 

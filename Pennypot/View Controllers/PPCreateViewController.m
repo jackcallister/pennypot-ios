@@ -8,6 +8,7 @@
 
 #import "PPCreateViewController.h"
 #import "PPCreateObjectView.h"
+#import "PPPennyPot.h"
 
 #import <ViewUtils/ViewUtils.h>
 
@@ -23,7 +24,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addButtonPressed:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed:)];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.createView];
@@ -41,11 +42,22 @@
 
 - (IBAction)addButtonPressed:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    PPPennyPot *savingObject = [self.createView retrieveObjectFromFormAnimateError];
+    if (savingObject) {
+         [self dismissViewController];
+    }
 }
 
 - (IBAction)cancelButtonPressed:(id)sender
 {
+    [self dismissViewController];
+}
+
+#pragma mark - Private
+
+- (void)dismissViewController
+{
+    [self.createView resignRespondersAndClearData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

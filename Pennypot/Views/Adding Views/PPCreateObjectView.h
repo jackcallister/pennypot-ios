@@ -19,7 +19,10 @@
 - (void)initialResponder;
 - (void)resignRespondersAndClearData;
 
-- (PPPennyPot *)retrieveObjectFromForm;
+/*
+    Will return nil if the correct data does not exist.
+ */
+- (PPPennyPot *)retrieveObjectFromFormAnimateError;
 
 + (CGFloat)heightForView;
 
