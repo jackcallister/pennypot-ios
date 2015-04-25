@@ -96,9 +96,9 @@ static const CGFloat kButtonBottom = 10.0f;
 #pragma mark - Scroll View Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{    
+{
     [self calculateAmountLabelWithScrollView:scrollView];
-
+    
     //Let's make sure that the UI elements move when we hit the top and bottom of the scrollview
     // If scrollview is at the bottom.
     if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) {
@@ -108,13 +108,10 @@ static const CGFloat kButtonBottom = 10.0f;
         self.currencyLabel.bottom = self.amountLabel.bottom = bottomOffset - self.view.center.y;
         
     } else if (scrollView.contentOffset.y < 0) { // Scrollview is at the top
-
         self.currencyLabel.bottom = self.amountLabel.bottom = self.view.center.y - scrollView.contentOffset.y;
         self.doneButton.bottom = self.cancelButton.bottom = (self.view.boundsHeight - kButtonBottom) - scrollView.contentOffset.y;
-        
     }
 }
-
 
 #pragma mark - Value calculations
 
@@ -123,7 +120,6 @@ static const CGFloat kButtonBottom = 10.0f;
     CGFloat maxHeight = scrollView.contentSize.height - self.view.boundsHeight;
     CGFloat calculatedOffsetDiff = (scrollView.contentOffset.y + scrollView.frame.size.height) - self.view.boundsHeight;
     CGFloat value = self.pennyObject.currentProgress;
-    
     
     if (self.pennyObject) {
         

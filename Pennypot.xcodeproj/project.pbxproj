@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		215685B9BC109397340FC4D6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EDAB67B789C782CAFF636EA /* libPods.a */; };
-		E50CC6C71AA147B3009BA518 /* PPObjectCreationNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E50CC6C61AA147B3009BA518 /* PPObjectCreationNotificationManager.m */; };
+		BD3068C31AD8D3660077E6B3 /* PPCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD3068C21AD8D3660077E6B3 /* PPCreateViewController.m */; };
 		E524EA2B1A2A91EE00704FF6 /* UIColor+PennyColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA2A1A2A91EE00704FF6 /* UIColor+PennyColor.m */; };
 		E524EA2F1A2AB60F00704FF6 /* PPDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA2E1A2AB60F00704FF6 /* PPDataManager.m */; };
 		E524EA321A2AD5E000704FF6 /* PPModifyPennyPotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E524EA311A2AD5E000704FF6 /* PPModifyPennyPotViewController.m */; };
@@ -25,7 +25,6 @@
 		E5C475231A981D4400106F00 /* PPCreateObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C475221A981D4400106F00 /* PPCreateObjectView.m */; };
 		E5CA55281AB699120006C5C5 /* PPAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = E5CA55271AB699120006C5C5 /* PPAnimator.m */; };
 		E5ECE3EE1A315AAF0001AB1A /* PPPennyPotDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5ECE3ED1A315AAF0001AB1A /* PPPennyPotDetailView.m */; };
-		E5FD35C81A997B2200FBC105 /* PPAnimatingAddControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FD35C71A997B2200FBC105 /* PPAnimatingAddControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +40,8 @@
 /* Begin PBXFileReference section */
 		7D222B175C1DB61F85737BB8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8EDAB67B789C782CAFF636EA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E50CC6C51AA147B3009BA518 /* PPObjectCreationNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPObjectCreationNotificationManager.h; sourceTree = "<group>"; };
-		E50CC6C61AA147B3009BA518 /* PPObjectCreationNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPObjectCreationNotificationManager.m; sourceTree = "<group>"; };
+		BD3068C11AD8D3660077E6B3 /* PPCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCreateViewController.h; sourceTree = "<group>"; };
+		BD3068C21AD8D3660077E6B3 /* PPCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCreateViewController.m; sourceTree = "<group>"; };
 		E524EA291A2A91EE00704FF6 /* UIColor+PennyColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PennyColor.h"; sourceTree = "<group>"; };
 		E524EA2A1A2A91EE00704FF6 /* UIColor+PennyColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PennyColor.m"; sourceTree = "<group>"; };
 		E524EA2D1A2AB60F00704FF6 /* PPDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPDataManager.h; sourceTree = "<group>"; };
@@ -75,8 +74,6 @@
 		E5CA55271AB699120006C5C5 /* PPAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAnimator.m; sourceTree = "<group>"; };
 		E5ECE3EC1A315AAF0001AB1A /* PPPennyPotDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPPennyPotDetailView.h; sourceTree = "<group>"; };
 		E5ECE3ED1A315AAF0001AB1A /* PPPennyPotDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPPennyPotDetailView.m; sourceTree = "<group>"; };
-		E5FD35C61A997B2200FBC105 /* PPAnimatingAddControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPAnimatingAddControl.h; sourceTree = "<group>"; };
-		E5FD35C71A997B2200FBC105 /* PPAnimatingAddControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPAnimatingAddControl.m; sourceTree = "<group>"; };
 		E7DA516C448AAC530A2EAE75 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,8 +118,6 @@
 			children = (
 				E524EA2D1A2AB60F00704FF6 /* PPDataManager.h */,
 				E524EA2E1A2AB60F00704FF6 /* PPDataManager.m */,
-				E50CC6C51AA147B3009BA518 /* PPObjectCreationNotificationManager.h */,
-				E50CC6C61AA147B3009BA518 /* PPObjectCreationNotificationManager.m */,
 			);
 			path = "Data Managers";
 			sourceTree = "<group>";
@@ -130,7 +125,6 @@
 		E565D59F1A1C6862003ADD6D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E5FD35C51A997AEF00FBC105 /* Custom Icons */,
 				E5C475201A981D0F00106F00 /* Adding Views */,
 				E5ECE3EB1A315A760001AB1A /* VC Views */,
 				E565D5A11A1C6A80003ADD6D /* Headers */,
@@ -247,6 +241,8 @@
 				E59992EB1A1C65F3009CF98B /* PPOverviewTableViewController.m */,
 				E524EA301A2AD5E000704FF6 /* PPModifyPennyPotViewController.h */,
 				E524EA311A2AD5E000704FF6 /* PPModifyPennyPotViewController.m */,
+				BD3068C11AD8D3660077E6B3 /* PPCreateViewController.h */,
+				BD3068C21AD8D3660077E6B3 /* PPCreateViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -285,15 +281,6 @@
 				E5ECE3ED1A315AAF0001AB1A /* PPPennyPotDetailView.m */,
 			);
 			path = "VC Views";
-			sourceTree = "<group>";
-		};
-		E5FD35C51A997AEF00FBC105 /* Custom Icons */ = {
-			isa = PBXGroup;
-			children = (
-				E5FD35C61A997B2200FBC105 /* PPAnimatingAddControl.h */,
-				E5FD35C71A997B2200FBC105 /* PPAnimatingAddControl.m */,
-			);
-			path = "Custom Icons";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,13 +424,12 @@
 				E524EA2B1A2A91EE00704FF6 /* UIColor+PennyColor.m in Sources */,
 				E524EA321A2AD5E000704FF6 /* PPModifyPennyPotViewController.m in Sources */,
 				E565D5A71A1C6C5D003ADD6D /* PPOverviewTableViewCell.m in Sources */,
+				BD3068C31AD8D3660077E6B3 /* PPCreateViewController.m in Sources */,
 				E5ECE3EE1A315AAF0001AB1A /* PPPennyPotDetailView.m in Sources */,
-				E50CC6C71AA147B3009BA518 /* PPObjectCreationNotificationManager.m in Sources */,
 				E5CA55281AB699120006C5C5 /* PPAnimator.m in Sources */,
 				E59992EC1A1C65F3009CF98B /* PPOverviewTableViewController.m in Sources */,
 				E5BF773D1A2017C000AF4262 /* PPPennyPot.m in Sources */,
 				E59992C41A1C653D009CF98B /* main.m in Sources */,
-				E5FD35C81A997B2200FBC105 /* PPAnimatingAddControl.m in Sources */,
 				E5C475231A981D4400106F00 /* PPCreateObjectView.m in Sources */,
 				E524EA2F1A2AB60F00704FF6 /* PPDataManager.m in Sources */,
 			);
@@ -565,7 +551,7 @@
 				INFOPLIST_FILE = Pennypot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5927a185-1a6c-4dae-b722-01a80786e0ce";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -579,7 +565,7 @@
 				INFOPLIST_FILE = Pennypot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9dd3791e-7f1f-42a3-8797-7047259a2d1f";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

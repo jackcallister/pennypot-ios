@@ -12,8 +12,6 @@
 
 @interface PPCreateObjectView : UIView
 
-@property (nonatomic, strong) UIButton *confirmButton;
-
 - (void)animateForEmptyTextFields;
 
 - (BOOL)shouldDismiss;
@@ -21,7 +19,10 @@
 - (void)initialResponder;
 - (void)resignRespondersAndClearData;
 
-- (PPPennyPot *)retrieveObjectFromForm;
+/*
+    Will return nil if the correct data does not exist.
+ */
+- (PPPennyPot *)retrieveObjectFromFormAnimateError;
 
 + (CGFloat)heightForView;
 

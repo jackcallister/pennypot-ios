@@ -16,6 +16,6 @@ typedef enum {
 
 @interface PPAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
-- (id)initWithPresentationType:(PPAnimatorPresentation)presentationType;
+- (instancetype)initWithPresentationType:(PPAnimatorPresentation)presentationType;
 
 @end

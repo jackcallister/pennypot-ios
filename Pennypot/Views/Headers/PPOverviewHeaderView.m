@@ -8,7 +8,6 @@
 
 #import "PPOverviewHeaderView.h"
 
-#import "PPAnimatingAddControl.h"
 #import "UIImage+ImageEffects.h"
 
 #import <ViewUtils/ViewUtils.h>
@@ -22,18 +21,15 @@
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic) IBOutlet UIImageView *blurredImageView;
 
-
-
 @end
 
 #define kDefaultHeaderFrame CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
 
 static CGFloat kParallaxDeltaFactor = 0.6f;
-static const CGFloat kPadding = 20.0f;
 
 @implementation PPOverviewHeaderView
 
-- (id)initWithImage:(UIImage *)image
+- (instancetype)initWithImage:(UIImage *)image
 {
     self = [super init];
     if (self) {
@@ -44,8 +40,6 @@ static const CGFloat kPadding = 20.0f;
         [self.backgroundImageView addSubview:self.blurredImageView];
         
         [self addSubview:self.backgroundScrollView];
-        [self addSubview:self.addButton];
-        
     }
     return self;
 }
@@ -54,7 +48,7 @@ static const CGFloat kPadding = 20.0f;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     // Layout once. The rest of the time scroll view
     // will take care of it.
     if (CGRectIsEmpty(self.backgroundScrollView.frame)) {
@@ -64,27 +58,25 @@ static const CGFloat kPadding = 20.0f;
         
         [self refreshBlurViewForNewImage];
     }
-    
-    self.addButton.height = self.addButton.width = 50;
-    self.addButton.right = self.boundsWidth - kPadding;
-    self.addButton.bottom = self.boundsHeight - kPadding;
-    
 }
 
 - (void)layoutHeaderViewForScrollViewOffset:(CGPoint)offset
 {
     CGRect backgroundFrame = self.backgroundScrollView.frame;
     
-    if (offset.y > 0) {
-        backgroundFrame.origin.y = MAX(offset.y *kParallaxDeltaFactor, 0);
+    if (offset.y > 0.0f) {
+        
+        backgroundFrame.origin.y = MAX(offset.y * kParallaxDeltaFactor, 0.0f);
         backgroundFrame.size.height = kDefaultHeaderFrame.size.height;
         
         self.backgroundScrollView.frame = backgroundFrame;
         
-        self.blurredImageView.alpha = (1 / kDefaultHeaderFrame.size.height * offset.y * 2);
+        self.blurredImageView.alpha = (1.0f / kDefaultHeaderFrame.size.height * offset.y * 2.0f);
         
         self.clipsToBounds = YES;
+        
     } else {
+        
         CGRect defaultFrame = kDefaultHeaderFrame;
         
         CGFloat delta = fabs(MIN(0.0f, offset.y));
@@ -118,14 +110,6 @@ static const CGFloat kPadding = 20.0f;
 
 
 #pragma mark - Getters
-
-- (PPAnimatingAddControl *)addButton
-{
-    if(!_addButton) {
-        _addButton = [PPAnimatingAddControl new];
-    }
-    return _addButton;
-}
 
 - (UIScrollView *)backgroundScrollView
 {

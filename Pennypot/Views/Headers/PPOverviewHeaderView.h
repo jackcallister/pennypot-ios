@@ -7,18 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-@class PPAnimatingAddControl;
 
 @class PPOverviewHeaderView;
 
-
 @interface PPOverviewHeaderView : UIView
 
-@property (nonatomic, strong) PPAnimatingAddControl *addButton;
-
-- (id)initWithImage:(UIImage *)image;
+- (instancetype)initWithImage:(UIImage *)image;
 - (void)layoutHeaderViewForScrollViewOffset:(CGPoint)offset;
-
 
 // Class
 + (CGFloat)headerHeight;

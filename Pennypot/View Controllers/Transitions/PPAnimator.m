@@ -21,7 +21,7 @@ static const CGFloat bottomViewOffset = 30.0f;
 
 @implementation PPAnimator
 
-- (id)initWithPresentationType:(PPAnimatorPresentation)presentationType
+- (instancetype)initWithPresentationType:(PPAnimatorPresentation)presentationType
 {
     if (self = [super init]) {
         self.presentationType = presentationType;
@@ -40,7 +40,7 @@ static const CGFloat bottomViewOffset = 30.0f;
     
     if (self.presentationType == PPAnimatorPresentationPresent) {
 
-        if ([fromViewController isKindOfClass:[PPOverviewTableViewController class]]) {            
+        if ([fromViewController isKindOfClass:[PPOverviewTableViewController class]] && [toViewController isKindOfClass:[PPModifyPennyPotViewController class]]) {
             ((PPModifyPennyPotViewController *)toViewController).backingImage = [self screenShotOfView:fromViewController.view];
         }
         

@@ -9,7 +9,6 @@
 #import "PPCreateObjectView.h"
 #import <ViewUtils/ViewUtils.h>
 #import "UIColor+PennyColor.h"
-#import "PPObjectCreationNotificationManager.h"
 #import "PPPennyPot.h"
 
 @interface PPCreateObjectView () <UITextFieldDelegate>
@@ -26,16 +25,12 @@
 @property (nonatomic, strong) UIView *keyline;
 @property (nonatomic, strong) UIView *bottomKeyline;
 
-@property (nonatomic, strong) UIView *animationPaddingView;
-
 - (CGFloat)valueFromTextField;
 
 @end
 
 static const CGFloat kHorizontalPadding = 15.0f;
 static const CGFloat kTextPadding = 5.0f;
-
-static const CGFloat kButtonHeight = 45.0f;
 
 @implementation PPCreateObjectView
 
@@ -49,8 +44,6 @@ static const CGFloat kButtonHeight = 45.0f;
         [self addSubview:self.nameTextField];
         [self addSubview:self.valueTextField];
         [self addSubview:self.bottomKeyline];
-        [self addSubview:self.confirmButton];
-        [self addSubview:self.animationPaddingView];
         
         [self.nameLabel sizeToFit];
         [self.valueLabel sizeToFit];
@@ -65,23 +58,16 @@ static const CGFloat kButtonHeight = 45.0f;
 {
     [super layoutSubviews];
     
-    CGFloat boundsHeightWithButton = self.boundsHeight - kButtonHeight;
-    
-    self.confirmButton.bottom = self.boundsHeight;
-    self.confirmButton.height = kButtonHeight;
-    self.confirmButton.right = self.boundsWidth;
-    self.confirmButton.width = self.boundsWidth/3;
-    
     self.keyline.height = self.bottomKeyline.height = 1;
     self.keyline.width = self.bottomKeyline.width = self.boundsWidth - (kHorizontalPadding * 2);
     self.keyline.left = self.bottomKeyline.left = kHorizontalPadding;
     
-    self.keyline.top = (boundsHeightWithButton/2) - 0.5f;
+    self.keyline.top = (self.boundsHeight/2) - 0.5f;
     
-    self.nameLabel.height = self.nameTextField.height = self.valueLabel.height = self.valueTextField.height = (boundsHeightWithButton/2) - self.keyline.height;
+    self.nameLabel.height = self.nameTextField.height = self.valueLabel.height = self.valueTextField.height = (self.boundsHeight/2) - self.keyline.height;
     
     self.nameLabel.top = self.nameTextField.top = 0;
-    self.valueLabel.bottom = self.valueTextField.bottom = self.valueTextField.bottom = self.boundsHeight - kButtonHeight;
+    self.valueLabel.bottom = self.valueTextField.bottom = self.valueTextField.bottom = self.boundsHeight;
     
     self.nameLabel.left = self.valueLabel.left = kHorizontalPadding;
     
@@ -91,10 +77,6 @@ static const CGFloat kButtonHeight = 45.0f;
     
     self.bottomKeyline.top = self.valueLabel.bottom;
     
-    // To create a white background during 'show' animations.
-    self.animationPaddingView.height = 30.0f;
-    self.animationPaddingView.width = self.boundsWidth;
-    self.animationPaddingView.bottom = 0;
 }
 
 #pragma mark - Text Field Delegate
@@ -170,7 +152,6 @@ static const CGFloat kButtonHeight = 45.0f;
 
 - (IBAction)confirmButtonPressed:(id)sender
 {
-    [PPObjectCreationNotificationManager sendStateChangedNotificationWithObject:self andUIChangeIntention:self.shouldDismiss];
 }
 
 #pragma mark - External
@@ -183,12 +164,16 @@ static const CGFloat kButtonHeight = 45.0f;
     return NO;
 }
 
-- (PPPennyPot *)retrieveObjectFromForm
+- (PPPennyPot *)retrieveObjectFromFormAnimateError
 {
-    PPPennyPot *object = [[PPPennyPot alloc] initWithTitle:self.nameTextField.text andSavingsGoal: [self valueFromTextField]];
-    
-    return object;
-    
+    if (self.shouldDismiss) {
+        PPPennyPot *object = [[PPPennyPot alloc] initWithTitle:self.nameTextField.text andSavingsGoal: [self valueFromTextField]];
+        
+        return object;
+    } else {
+        [self animateForEmptyTextFields];
+        return nil;
+    }
 }
 
 - (void)resignRespondersAndClearData
@@ -210,7 +195,6 @@ static const CGFloat kButtonHeight = 45.0f;
 - (CGFloat)valueFromTextField
 {
     return [[self.valueTextField.text substringFromIndex:1] floatValue];
-    
 }
 
 #pragma mark - Getters
@@ -283,32 +267,11 @@ static const CGFloat kButtonHeight = 45.0f;
     return _bottomKeyline;
 }
 
-- (UIButton *)confirmButton
-{
-    if (!_confirmButton) {
-        _confirmButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_confirmButton setTitle:@"Add" forState:UIControlStateNormal];
-        [_confirmButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_confirmButton addTarget:self action:@selector(confirmButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _confirmButton;
-}
-
-- (UIView *)animationPaddingView
-{
-    if (!_animationPaddingView) {
-        _animationPaddingView = [UIView new];
-        _animationPaddingView.backgroundColor = [UIColor whiteColor];
-    }
-    return _animationPaddingView;
-}
-
 #pragma mark - Class
 
 + (CGFloat)heightForView
 {
-    // 107 without button
-    return 152.0f;
+    return 107.0f;
 }
 
 @end

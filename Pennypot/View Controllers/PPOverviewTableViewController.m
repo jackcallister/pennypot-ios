@@ -11,72 +11,54 @@
 #import "PPPennyPot.h"
 #import "PPDataManager.h"
 #import "PPModifyPennyPotViewController.h"
-#import "PPCreateObjectView.h"
-#import "PPAnimatingAddControl.h"
-#import "PPObjectCreationNotificationManager.h"
 #import "PPAnimator.h"
+#import "PPCreateViewController.h"
 
 #import <ViewUtils/ViewUtils.h>
+#import <MNFloatingActionButton/MNFloatingActionButton.h>
 
-@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, UIAlertViewDelegate, PPModifyPennyPotViewControllerDelegate, UIViewControllerTransitioningDelegate>
+@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, PPModifyPennyPotViewControllerDelegate, PPCreateViewControllerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate>
 
-@property (nonatomic) BOOL isCreatingObject;
+@property (nonatomic, strong) MNFloatingActionButton *createButton;
 
 @property (nonatomic, strong) PPOverviewTableViewCell *modifiyingCell;
 @property (nonatomic, strong) PPOverviewHeaderView *overviewHeader;
-@property (nonatomic, strong) PPCreateObjectView *createView;
-
-@property (nonatomic, strong) UIView *transparentBackgroundView;
-
-- (void)animateCreateView;
 
 @end
 
 @implementation PPOverviewTableViewController
 
-- (id)init
+- (instancetype)init
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        [PPObjectCreationNotificationManager registerForStateChangedNotificationWithObserver:self andStateChangeSelector:@selector(stateChangedNotificationReceived:)];
+
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
 
     [self.tableView registerClass:PPOverviewTableViewCell.class forCellReuseIdentifier: [PPOverviewTableViewCell reuseIdentifier]];
     
-    [self.view addSubview:self.createView];
+    [self.view addSubview:self.createButton];
     
     self.overviewHeader.height = [PPOverviewHeaderView headerHeight];
     
     self.tableView.tableHeaderView = self.overviewHeader;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self registerForKeyboardNotifications];
 }
 
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
     
-    self.createView.width = self.view.boundsWidth;
-    self.createView.height = [PPCreateObjectView heightForView];
-
-    self.createView.top = self.isCreatingObject ? self.overviewHeader.bottom : self.overviewHeader.bottom - self.createView.height;
-    
-    self.transparentBackgroundView.height = self.view.boundsHeight - self.overviewHeader.bottom;
-    self.transparentBackgroundView.width = self.view.boundsWidth;
-    self.transparentBackgroundView.bottom = self.view.boundsHeight;
-}
-
-- (void)dealloc
-{
-    [PPObjectCreationNotificationManager deregisterForStateChangedNotificationWithObserver:self];
-    
-    [self deregisterForKeyboardNotifications];
+    self.createButton.height = self.createButton.width = 60.0f;
+    self.createButton.bottom = self.view.boundsHeight - 20.0f;
+    self.createButton.right = self.view.boundsWidth - 20.0f;
 }
 
 #pragma mark - Table View Data Source
@@ -135,29 +117,13 @@
 
 #pragma mark - Add Button Actions
 
-- (void)stateChangedNotificationReceived:(NSNotification *)sender
+- (IBAction)createButtonPressed:(id)sender
 {
-    BOOL didOriginateFromIcon = [PPObjectCreationNotificationManager didOriginateFromAddControl:[sender object]];
-    BOOL shouldChangeUIState = [PPObjectCreationNotificationManager doesContainUIChangeIntention:[sender object]];
-    
-    // This is from Cross Icon
-    if (shouldChangeUIState && didOriginateFromIcon) {
-        [self animateCreateView];
-    
-    // This is an empty create view! So let's shake the labels
-    } else if (self.isCreatingObject && ![self.createView shouldDismiss] && !didOriginateFromIcon) {
-        
-        [self.createView animateForEmptyTextFields];
-        
-    // Let's actually create this object. Yeeeha.
-    } else {
-        
-        [[PPDataManager sharedManager] addPennyPotToArray:[self.createView retrieveObjectFromForm]];
-        
-        [self.createView animateForEmptyTextFields];
-        [self.tableView reloadData];
-        [self animateCreateView];
-    }
+    PPCreateViewController *viewController = [PPCreateViewController new];
+    viewController.delegate = self;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    navigationController.transitioningDelegate = self;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - Scroll View Delegate
@@ -184,6 +150,14 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - Create view controller Delegate
+
+- (void)createViewController:(PPCreateViewController *)viewController didCreateObject:(PPPennyPot *)object
+{
+    [[PPDataManager sharedManager] addPennyPotToArray:object];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - Alert View Delegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -199,54 +173,6 @@
     self.modifiyingCell = nil;
 }
 
-#pragma mark - Animation States
-
-- (void)animateCreateView
-{
-    CGFloat pointToAnimate;
-    
-    self.isCreatingObject = !self.isCreatingObject;
-    
-    if (self.isCreatingObject) {
-        pointToAnimate = self.overviewHeader.bottom + self.createView.height;
-        self.tableView.scrollEnabled = NO;
-    } else {
-        [self.createView resignRespondersAndClearData];
-        pointToAnimate = self.overviewHeader.bottom;
-        
-        self.tableView.scrollEnabled = YES;
-    }
-    
-    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-    [self animateTransparentBackgroundView];
-    
-    [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:0.65f initialSpringVelocity:.10f options:UIViewAnimationOptionCurveEaseIn animations:^{
-
-        self.createView.bottom = pointToAnimate;
-        
-    } completion:^(BOOL finished) {
-        if (self.isCreatingObject) {
-            [self.createView initialResponder];
-        }
-    }];
-    
-}
-
-- (void)animateTransparentBackgroundView
-{
-    if (self.isCreatingObject) {
-        [self.tableView insertSubview:self.transparentBackgroundView belowSubview:self.createView];
-    }
-    
-    [UIView animateWithDuration:0.2f animations:^{
-        self.transparentBackgroundView.alpha = self.isCreatingObject ? 1.0f : 0.0f;
-        
-    } completion:^(BOOL finished) {
-        if (!self.isCreatingObject) {
-            [self.transparentBackgroundView removeFromSuperview];
-        }
-    }];
-}
 
 #pragma mark - Utilities
 
@@ -259,45 +185,16 @@
     [self.tableView deleteRowsAtIndexPaths:@[deletePath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-#pragma mark - Keyboard Notifications
-
-- (void)registerForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)deregisterForKeyboardNotifications
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:UIKeyboardDidShowNotification];
-    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:UIKeyboardWillHideNotification];
-}
-
-#pragma mark - Keyboard Listeners
-
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-    NSDictionary* info = [aNotification userInfo];
-    
-    CGRect keyboardFrame = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-    CGPoint createViewBottom = (CGPoint){0, self.createView.bottom};
-    
-    CGFloat offset = createViewBottom.y - (self.view.boundsHeight -keyboardFrame.size.height);
-    if (offset > 0) {
-        [self.tableView setContentOffset:CGPointMake(0, offset) animated:YES];
-    }
-}
-
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
-    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-}
-
 #pragma mark - Getters
+
+- (MNFloatingActionButton *)createButton
+{
+    if (!_createButton) {
+        _createButton = [[MNFloatingActionButton alloc] initWithFrame:CGRectZero];
+        [_createButton addTarget:self action:@selector(createButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _createButton;
+}
 
 - (PPOverviewHeaderView *)overviewHeader
 {
@@ -307,23 +204,7 @@
     return _overviewHeader;
 }
 
-- (PPCreateObjectView *)createView
-{
-    if (!_createView) {
-        _createView = [[PPCreateObjectView alloc] initWithFrame:CGRectZero];
-    }
-    return _createView;
-}
-
-- (UIView *)transparentBackgroundView
-{
-    if (!_transparentBackgroundView) {
-        _transparentBackgroundView = [UIView new];
-        _transparentBackgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
-        _transparentBackgroundView.alpha = 0.0f;
-    }
-    return _transparentBackgroundView;
-}
+#pragma mark - View Controller Transition
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {

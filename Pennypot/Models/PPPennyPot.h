@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSString *formattedDisplayValue;
 @property (nonatomic, strong) UIColor *progressColor;
 
-- (id)initWithTitle:(NSString *)title andSavingsGoal:(NSInteger)savingsGoal;
+- (instancetype)initWithTitle:(NSString *)title andSavingsGoal:(NSInteger)savingsGoal;
 
 - (CGFloat)getProgressWidthFrom:(CGFloat)maxWidth;
 

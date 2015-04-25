@@ -32,7 +32,7 @@ static const CGFloat kHorizontalPadding = 20.0f;
 
 @implementation PPOverviewTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.fullProgressBar];
@@ -58,6 +58,7 @@ static const CGFloat kHorizontalPadding = 20.0f;
     [self.titleLabel sizeToFit];
     [self.progressLabel sizeToFit];
     
+    self.currentProgressBar.hidden = self.pennyPot.currentProgress == 0 ? YES : NO;
     
     [self addSwipeInteractions];
 }
