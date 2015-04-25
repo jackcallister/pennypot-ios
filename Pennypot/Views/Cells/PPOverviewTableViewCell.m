@@ -58,6 +58,7 @@ static const CGFloat kHorizontalPadding = 20.0f;
     [self.titleLabel sizeToFit];
     [self.progressLabel sizeToFit];
     
+    self.currentProgressBar.hidden = self.pennyPot.currentProgress == 0 ? YES : NO;
     
     [self addSwipeInteractions];
 }
