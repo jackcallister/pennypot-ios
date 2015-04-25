@@ -44,7 +44,10 @@
 {
     PPPennyPot *savingObject = [self.createView retrieveObjectFromFormAnimateError];
     if (savingObject) {
-         [self dismissViewController];
+        if ([self.delegate respondsToSelector:@selector(createViewController:didCreateObject:)]) {
+            [self.delegate createViewController:self didCreateObject:savingObject];
+        }
+        [self dismissViewController];
     }
 }
 

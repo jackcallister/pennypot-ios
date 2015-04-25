@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class PPPennyPot;
+@class PPCreateViewController;
+
+@protocol PPCreateViewControllerDelegate <NSObject>
+
+@optional
+-(void)createViewController:(PPCreateViewController *)viewController didCreateObject:(PPPennyPot *)object;
+
+@end
+
 @interface PPCreateViewController : UIViewController
+
+@property(nonatomic,weak)id< PPCreateViewControllerDelegate> delegate;
 
 @end

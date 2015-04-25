@@ -17,7 +17,7 @@
 #import <ViewUtils/ViewUtils.h>
 #import <MNFloatingActionButton/MNFloatingActionButton.h>
 
-@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, PPModifyPennyPotViewControllerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate>
+@interface PPOverviewTableViewController () <PPOverviewTableViewCellDelegate, PPModifyPennyPotViewControllerDelegate, PPCreateViewControllerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) MNFloatingActionButton *createButton;
 
@@ -120,6 +120,7 @@
 - (IBAction)createButtonPressed:(id)sender
 {
     PPCreateViewController *viewController = [PPCreateViewController new];
+    viewController.delegate = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     navigationController.transitioningDelegate = self;
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -147,6 +148,14 @@
 {
     [[PPDataManager sharedManager] updateObjects];
     [self.tableView reloadData];
+}
+
+#pragma mark - Create view controller Delegate
+
+- (void)createViewController:(PPCreateViewController *)viewController didCreateObject:(PPPennyPot *)object
+{
+    [[PPDataManager sharedManager] addPennyPotToArray:object];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Alert View Delegate

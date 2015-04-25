@@ -64,16 +64,19 @@ static CGFloat kParallaxDeltaFactor = 0.6f;
 {
     CGRect backgroundFrame = self.backgroundScrollView.frame;
     
-    if (offset.y > 0) {
-        backgroundFrame.origin.y = MAX(offset.y *kParallaxDeltaFactor, 0);
+    if (offset.y > 0.0f) {
+        
+        backgroundFrame.origin.y = MAX(offset.y * kParallaxDeltaFactor, 0.0f);
         backgroundFrame.size.height = kDefaultHeaderFrame.size.height;
         
         self.backgroundScrollView.frame = backgroundFrame;
         
-        self.blurredImageView.alpha = (1 / kDefaultHeaderFrame.size.height * offset.y * 2);
+        self.blurredImageView.alpha = (1.0f / kDefaultHeaderFrame.size.height * offset.y * 2.0f);
         
         self.clipsToBounds = YES;
+        
     } else {
+        
         CGRect defaultFrame = kDefaultHeaderFrame;
         
         CGFloat delta = fabs(MIN(0.0f, offset.y));
